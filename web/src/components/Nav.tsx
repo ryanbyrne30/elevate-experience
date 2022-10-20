@@ -2,6 +2,8 @@ import BrandIcon from "./icons/BrandIcon";
 import MenuIcon from "./icons/MenuIcon";
 import { useState } from "preact/hooks";
 import type { ElementProps } from "@/types/props";
+import PrimaryButton from "./buttons/PrimaryButton";
+import SecondaryButton from "./buttons/SecondaryButton";
 
 function PrimaryMenu() {
   return (
@@ -26,10 +28,14 @@ function SecondaryMenu(props: ElementProps) {
   return (
     <ul class={`${props.class}`}>
       <li class="p-2">
-        <a href="/">Sign In</a>
+        <a href="/">
+          <SecondaryButton>Sign In</SecondaryButton>
+        </a>
       </li>
       <li class="p-2">
-        <a href="/">Sign Up</a>
+        <a href="/">
+          <PrimaryButton>Sign Up</PrimaryButton>
+        </a>
       </li>
     </ul>
   );

@@ -4,14 +4,14 @@
 
 @layer base {
   :root {
-    --primary: 50, 50, 50;
-    --primaryLight: 100, 100, 50;
+    --primary: 30, 30, 30;
+    --primaryLight: 60, 60, 50;
     --primaryDark: 0, 0, 0;
     --secondary: 245, 245, 245;
     --secondaryLight: 255, 255, 255;
     --secondaryDark: 230, 230, 230;
     --error: 191, 6, 49;
-    --accent1: 30, 56, 92;
+    --accent1: 97, 81, 139;
     --accent2: 163, 109, 2;
   }
 }
@@ -30,4 +30,16 @@ body {
 
 .center {
   @apply items-center;
+}
+
+button {
+  @apply px-4 py-2 rounded shadow-md;
+}
+
+button.primary {
+  @apply bg-accent1;
+}
+
+button.secondary {
+  @apply border-2 border-secondary;
 }
