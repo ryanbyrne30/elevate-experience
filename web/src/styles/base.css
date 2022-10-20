@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --primary: 30, 30, 30;
+    --primary: 15, 15, 20;
     --primaryLight: 60, 60, 50;
     --primaryDark: 0, 0, 0;
     --secondary: 245, 245, 245;
