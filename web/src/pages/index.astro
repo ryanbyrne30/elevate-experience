@@ -6,7 +6,11 @@ import PrimaryButton from '@/components/buttons/PrimaryButton';
 ---
 
 <Layout title="Welcome to Astro.">
-	<div class="grid grid-rows-2 items-center justify-items-center w-screen min-h-screen lg:flex lg:flex-row lg:center pt-16 lg:pt-0">
+	<div class="grid grid-rows-2 items-center justify-items-center w-screen min-h-screen lg:flex lg:flex-row lg:center pt-16 lg:pt-0"
+		style={{
+			gridTemplateRows: "auto auto"
+		}}
+	>
 		<header class="p-4 py-10 lg:p-20 w-full lg:w-4/5 max-w-xl lg:max-w-3xl">
 			<h1>Freedom Ball</h1>
 			<div class="w-full row center justify-between flex-wrap">
@@ -27,7 +31,7 @@ import PrimaryButton from '@/components/buttons/PrimaryButton';
 				</a>
 			</div>
 		</header>
-			<img src="/lily.jpeg" class="object-cover w-full h-full min-h-fit lg:h-screen" />
+			<img src="/lily.jpeg" class="object-cover w-full h-full min-h-fit max-h-screen lg:h-screen" />
 	</div>
 </Layout>
 
