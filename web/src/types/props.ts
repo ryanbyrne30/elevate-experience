@@ -1,3 +1,4 @@
+import type { ComponentChildren } from "preact";
 import type { IconBaseProps } from "react-icons";
 
 export type IconProps = IconBaseProps & {
@@ -6,4 +7,5 @@ export type IconProps = IconBaseProps & {
 
 export type ElementProps = {
   class?: string;
+  children?: ComponentChildren;
 };
