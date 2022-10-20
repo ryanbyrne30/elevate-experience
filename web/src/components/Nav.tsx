@@ -46,7 +46,7 @@ export default function Nav() {
 
   return (
     <nav class="fixed top-0 left-0 w-screen bg-primary z-50">
-      <div class="w-screen p-2 row center justify-between">
+      <div class="w-screen p-2 md:px-4 md:p-1 row center justify-between">
         <a href="/">
           <BrandIcon class="text-3xl" />
         </a>
