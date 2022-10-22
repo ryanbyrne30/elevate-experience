@@ -12,7 +12,7 @@ function PrimaryMenu() {
         <a href="/">Home</a>
       </li>
       <li class="p-2">
-        <a href="/">Events</a>
+        <a href="/events">Events</a>
       </li>
       <li class="p-2">
         <a href="/">About</a>

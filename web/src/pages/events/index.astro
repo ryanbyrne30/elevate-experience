@@ -1,0 +1,53 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import EventPodium from '@/components/events/EventPodium';
+import EventFlyer from '@/components/events/EventFlyer';
+
+---
+
+<Layout title="Events">
+  <div class="col center lg:flex-row-reverse lg:items-start justify-between overflow-scroll lg:overflow-hidden h-screen">
+    <aside class="pt-32 max-w-lg lg:max-w-sm p-4 lg:overflow-y-scroll lg:h-full">
+      <header class="col flex-wrap w-full justify-between">
+        <div class="w-full row center justify-between">
+          <span class="font-condensed">Past Events</span>
+          <a href="/">
+            <span class="font-condensed underline">see all</span>
+          </a>
+        </div>
+        <div class="w-full row center justify-between">
+          <h2>Duck Hunt</h2>
+          <div class="p-2" />
+          <span class="font-light font-condensed">Sep 3rd, 2022</span>
+        </div>
+      </header>
+
+      <section class="pb-10">
+        <h3 class="font-light w-full border-b-1 border-secondary opacity-30 my-10">Podium</h3>
+        <EventPodium />
+      </section>
+
+      <section class="col center">
+        <h3 class="font-light w-full border-b-1 border-secondary opacity-30 my-10">Photos</h3>
+        <img src="/lily.jpeg" class="w-full object-cover" />
+        <a href='/'>
+          <span class="underline text-sm">all photos</span>
+        </a>
+      </section>
+    </aside>
+
+    <section class="pt-16 w-full lg:h-full lg:overflow-y-scroll">
+      <h1 class="mx-2 my-8 w-full border-b-1">Events</h1>
+      <ul>
+        <li class="py-10 lg:px-10">
+          <EventFlyer />
+        </li>
+        <li class="py-10 lg:px-10">
+          <EventFlyer />
+        </li>
+      </ul>
+    </section>
+
+
+  </div>
+</Layout>
