@@ -3,8 +3,8 @@ import SecondaryButton from "../buttons/SecondaryButton";
 
 export default function EventFlyer() {
   return (
-    <div class="w-full col center lg:flex-row lg:h-fit">
-      <div class="w-full h-72 col justify-between p-2">
+    <div class="relative w-full flex center sm:flex-row lg:h-fit">
+      <div class="w-full h-96 lg:h-72 col justify-between p-2 backdrop-blur-xs">
         <header>
           <span class="text-3xl lg:text-6xl font-condensed font-bold">
             Freedom Ball
@@ -24,7 +24,7 @@ export default function EventFlyer() {
           <PrimaryButton>Register</PrimaryButton>
         </div>
       </div>
-      <div class="w-full h-full">
+      <div class="w-full h-full absolute sm:relative top-0 left-0 -z-10 opacity-10 sm:opacity-100">
         <img class="h-full w-full object-cover" src="/volleyball.png" />
       </div>
     </div>
