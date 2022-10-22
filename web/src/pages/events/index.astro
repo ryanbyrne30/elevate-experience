@@ -6,7 +6,7 @@ import EventFlyer from '@/components/events/EventFlyer';
 ---
 
 <Layout title="Events">
-  <div class="col center lg:flex-row-reverse lg:items-start justify-between overflow-scroll lg:overflow-hidden h-screen">
+  <div class="col center lg:flex-row-reverse lg:items-start justify-between overflow-y-scroll lg:overflow-hidden h-screen">
     <aside class="pt-32 max-w-lg lg:max-w-sm p-4 lg:overflow-y-scroll lg:h-full">
       <header class="col flex-wrap w-full justify-between">
         <div class="w-full row center justify-between">
@@ -37,7 +37,7 @@ import EventFlyer from '@/components/events/EventFlyer';
     </aside>
 
     <section class="pt-16 w-full lg:h-full lg:overflow-y-scroll">
-      <h1 class="mx-2 my-8 w-full border-b-1">Events</h1>
+      <h1 class="px-2 my-8 w-full border-b-1">Upcoming Events</h1>
       <ul>
         <li class="py-10 lg:px-10">
           <EventFlyer />
@@ -47,7 +47,5 @@ import EventFlyer from '@/components/events/EventFlyer';
         </li>
       </ul>
     </section>
-
-
   </div>
 </Layout>
