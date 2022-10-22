@@ -7,28 +7,26 @@ import EventFlyer from '@/components/events/EventFlyer';
 
 <Layout title="Events">
   <div class="col center lg:flex-row-reverse lg:items-start justify-between overflow-y-scroll lg:overflow-hidden h-screen">
-    <aside class="pt-32 max-w-lg lg:max-w-sm p-4 lg:overflow-y-scroll lg:h-full">
+    <aside class="pt-20 max-w-lg lg:max-w-sm p-4 lg:overflow-y-scroll lg:h-full">
       <header class="col flex-wrap w-full justify-between">
-        <div class="w-full row center justify-between">
-          <span class="font-condensed">Past Events</span>
+        <div class="w-full row center justify-between py-2">
+          <h4>Previous Event</h4>
           <a href="/">
-            <span class="font-condensed underline">see all</span>
+            <span class="font-condensed underline whitespace-nowrap">see all</span>
           </a>
         </div>
         <div class="w-full row center justify-between">
-          <h2>Duck Hunt</h2>
+          <span class="text-3xl lg:text-5xl font-condensed">Duck Hunt</span>
           <div class="p-2" />
           <span class="font-light font-condensed">Sep 3rd, 2022</span>
         </div>
       </header>
 
-      <section class="pb-10">
-        <h3 class="font-light w-full border-b-1 border-secondary opacity-30 my-10">Podium</h3>
+      <section class="py-10">
         <EventPodium />
       </section>
 
-      <section class="col center">
-        <h3 class="font-light w-full border-b-1 border-secondary opacity-30 my-10">Photos</h3>
+      <section class="col center py-10">
         <img src="/lily.jpeg" class="w-full object-cover" />
         <a href='/'>
           <span class="underline text-sm">all photos</span>

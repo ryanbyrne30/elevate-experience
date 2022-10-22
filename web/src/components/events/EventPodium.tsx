@@ -1,21 +1,18 @@
 export default function EventPodium() {
   return (
-    <div
-      class="grid grid-rows-3 gap-2"
-      style={{ gridTemplateRows: "auto auto auto" }}
-    >
-      <div class="col items-start">
-        <div class="col center w-full p-2">
+    <div class="col">
+      <div class="row my-1 center bg-gradient-to-r from-amber-500">
+        <div class="aspect-square w-1/2">
+          <img class="w-full h-full object-cover" src="/lily.jpeg" />
+        </div>
+        <div class="col p-2">
           <span class="font-light opacity-60">First Place</span>
           <span class="text-xl">Werewolves</span>
         </div>
-        <div class="aspect-square">
-          <img class="w-full h-full object-cover" src="/lily.jpeg" />
-        </div>
       </div>
 
-      <div class="row center">
-        <div class="aspect-square w-1/3">
+      <div class="row my-1 center bg-gradient-to-r from-zinc-500">
+        <div class="aspect-square w-2/5">
           <img class="w-full h-full object-cover" src="/lily.jpeg" />
         </div>
         <div class="p-2 col">
@@ -24,7 +21,7 @@ export default function EventPodium() {
         </div>
       </div>
 
-      <div class="row center">
+      <div class="row my-1 center bg-gradient-to-r from-orange-800">
         <div class="aspect-square w-1/3">
           <img class="w-full h-full object-cover" src="/lily.jpeg" />
         </div>
