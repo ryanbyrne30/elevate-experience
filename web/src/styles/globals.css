@@ -1,3 +1,81 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 15, 15, 20;
+    --primaryLight: 60, 60, 50;
+    --primaryDark: 0, 0, 0;
+    --secondary: 245, 245, 245;
+    --secondaryLight: 255, 255, 255;
+    --secondaryDark: 230, 230, 230;
+    --error: 191, 6, 49;
+    --accent1: 97, 81, 139;
+    --accent2: 163, 109, 2;
+  }
+}
+
+body {
+  @apply min-h-screen bg-primary text-secondary;
+}
+
+.row {
+  @apply flex flex-row;
+}
+
+.col {
+  @apply flex flex-col;
+}
+
+.center {
+  @apply items-center;
+}
+
+button {
+  @apply rounded px-4 py-2 shadow-md;
+}
+
+button.primary {
+  @apply bg-accent1;
+}
+
+button.secondary {
+  @apply border-2 border-secondary;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Roboto Condensed", sans-serif;
+  @apply font-bold;
+}
+
+.font-condensed {
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+h1 {
+  @apply text-4xl lg:text-7xl;
+}
+
+h2 {
+  @apply text-2xl lg:text-4xl;
+}
+
+h3 {
+  @apply text-xl lg:text-2xl;
+}
+
+h4 {
+  @apply text-lg;
+}
+
+p {
+  @apply font-light;
+}
+
+.border-b-1 {
+  border-bottom: 1px solid;
+}
