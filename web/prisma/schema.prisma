@@ -17,8 +17,15 @@ generator js {
   previewFeatures = ["referentialIntegrity"]
 }
 
-model Example {
-  id String @id @default(cuid())
+model Event {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  location    String?
+  date        DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Necessary for Next auth

@@ -65,7 +65,7 @@ p {
 }
 
 form {
-  @apply col center w-full max-w-lg p-8;
+  @apply col center w-full max-w-xl p-8;
 }
 
 label {

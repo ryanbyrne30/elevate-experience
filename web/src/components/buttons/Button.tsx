@@ -1,9 +1,28 @@
 import { ButtonProps } from "@/types/props";
 import Link from "next/link";
 
-export default function Button(props: ButtonProps & { href?: string }) {
-  const button = <button {...props}>{props.children}</button>;
+export default function Button(
+  props: ButtonProps & {
+    href?: string;
+    isLoading?: boolean;
+    loadingMessage?: string;
+  }
+) {
+  const { href, isLoading, loadingMessage, className, onClick, ...rest } =
+    props;
+  const button = (
+    <button
+      {...rest}
+      onClick={(e) => {
+        if (isLoading) e.preventDefault();
+        else if (onClick) onClick(e);
+      }}
+      className={`${className} ${isLoading ? "animate-pulse" : ""}`}
+    >
+      {isLoading ? loadingMessage : props.children}
+    </button>
+  );
 
-  if (props.href) return <Link href={props.href}>{button}</Link>;
+  if (href) return <Link href={href}>{button}</Link>;
   return button;
 }
