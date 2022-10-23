@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import type { IconBaseProps } from "react-icons";
 
 export type IconProps = IconBaseProps & {
@@ -9,3 +9,5 @@ export type ElementProps = {
   className?: string;
   children?: ReactNode;
 };
+
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
