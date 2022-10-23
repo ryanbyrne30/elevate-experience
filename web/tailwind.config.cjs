@@ -9,12 +9,12 @@ const generateColorClass = (variable) => {
 
 const colors = {
   primary: generateColorClass("primary"),
-  primaryLight: generateColorClass("primaryLight"),
-  primaryDark: generateColorClass("primaryDark"),
+  "primary-light": generateColorClass("primary-light"),
+  "primary-dark": generateColorClass("primary-dark"),
   error: generateColorClass("error"),
   secondary: generateColorClass("secondary"),
-  secondaryLight: generateColorClass("secondaryLight"),
-  secondaryDark: generateColorClass("secondaryDark"),
+  "secondary-light": generateColorClass("secondary-light"),
+  "secondary-dark": generateColorClass("secondary-dark"),
   accent1: generateColorClass("accent1"),
   accent2: generateColorClass("accent2"),
 };

@@ -5,12 +5,12 @@
 @layer base {
   :root {
     --primary: 15, 15, 20;
-    --primaryLight: 60, 60, 50;
-    --primaryDark: 0, 0, 0;
+    --primary-light: 40, 40, 40;
+    --primary-dark: 0, 0, 0;
     --secondary: 245, 245, 245;
-    --secondaryLight: 255, 255, 255;
-    --secondaryDark: 230, 230, 230;
-    --error: 191, 6, 49;
+    --secondary-light: 255, 255, 255;
+    --secondary-dark: 230, 230, 230;
+    --error: 245, 130, 130;
     --accent1: 97, 81, 139;
     --accent2: 163, 109, 2;
   }
@@ -18,18 +18,6 @@
 
 body {
   @apply min-h-screen bg-primary text-secondary;
-}
-
-.row {
-  @apply flex flex-row;
-}
-
-.col {
-  @apply flex flex-col;
-}
-
-.center {
-  @apply items-center;
 }
 
 button {
@@ -76,6 +64,40 @@ p {
   @apply font-light;
 }
 
+form {
+  @apply col center w-full max-w-lg p-8;
+}
+
+label {
+  @apply mb-1 w-full text-left text-sm font-bold opacity-80;
+}
+
+label.required::after {
+  content: "*";
+  @apply text-error;
+}
+
+input,
+textarea {
+  @apply w-full rounded bg-primary-light p-2 text-secondary;
+}
+
 .border-b-1 {
   border-bottom: 1px solid;
+}
+
+.row {
+  @apply flex flex-row;
+}
+
+.col {
+  @apply flex flex-col;
+}
+
+.center {
+  @apply items-center;
+}
+
+.group {
+  @apply flex w-full flex-col items-center py-6;
 }
