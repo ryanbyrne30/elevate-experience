@@ -82,6 +82,14 @@ textarea {
   @apply w-full rounded bg-primary-light p-2 text-secondary;
 }
 
+table {
+  @apply text-center;
+}
+
+td {
+  @apply h-4 w-16 text-ellipsis whitespace-nowrap border-2 px-4 text-sm;
+}
+
 .border-b-1 {
   border-bottom: 1px solid;
 }
