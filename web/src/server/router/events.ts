@@ -3,10 +3,6 @@ import { createRouter } from "./context";
 
 export const eventsRouter = createRouter()
   .query("getAll", {
-    // input: z.object({
-    // perPage: z.number().default(20),
-    // page: z.number().default(0),
-    // }),
     async resolve({ ctx }) {
       return await ctx.prisma.event.findMany();
     },
@@ -22,5 +18,17 @@ export const eventsRouter = createRouter()
       return await ctx.prisma.event.create({
         data: input,
       });
+    },
+  })
+  .mutation("update", {
+    input: z.object({
+      id: z.number(),
+      name: z.union([z.undefined(), z.string()]),
+      date: z.union([z.undefined(), z.date()]),
+      location: z.union([z.undefined(), z.string()]),
+      description: z.union([z.undefined(), z.string()]),
+    }),
+    async resolve({ input, ctx }) {
+      return null;
     },
   });

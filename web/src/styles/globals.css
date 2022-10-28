@@ -87,7 +87,11 @@ table {
 }
 
 td {
-  @apply h-4 w-16 text-ellipsis whitespace-nowrap border-2 px-4 text-sm;
+  @apply h-8 w-16 text-ellipsis whitespace-nowrap border-2 border-primary-light px-6 py-2;
+}
+
+th {
+  @apply bg-secondary text-primary;
 }
 
 .border-b-1 {
