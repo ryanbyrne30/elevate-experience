@@ -1,4 +1,5 @@
 ---
+import Clock from '@/components/clock';
 import Header from '@/components/header';
 import Layout from '../layouts/Layout.astro';
 ---
@@ -7,6 +8,7 @@ import Layout from '../layouts/Layout.astro';
   <div class="w-screen h-screen col center justify-between py-10">
 
     <Header client:load />
+    <Clock client:load />
     <span class="font-light">Elevate Experience</span>
   </div>
 </Layout>

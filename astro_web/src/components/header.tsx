@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <header
-      class="row items-start header-box-container cursor-pointer"
+      class="row items-start header-box-container cursor-pointer w-full px-5"
       onClick={() => setState(state + 1)}
     >
       <h1 className="parent-pretext font-thin whitespace-nowrap">
