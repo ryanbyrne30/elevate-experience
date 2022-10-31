@@ -1,5 +1,4 @@
 ---
-import Nav from '@/components/Nav';
 import '@/styles/base.css';
 
 export interface Props {
@@ -24,8 +23,7 @@ const { title } = Astro.props;
 		<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet"> 
 	</head>
 	<body>
-    <Nav client:load />
-    <main>
+    <main class="col center justify-between">
       <slot />
     </main>
 	</body>

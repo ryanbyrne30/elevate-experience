@@ -1,36 +1,9 @@
 ---
+import Header from '@/components/header';
 import Layout from '../layouts/Layout.astro';
-import SecondaryButton from '@/components/buttons/SecondaryButton';
-import PrimaryButton from '@/components/buttons/PrimaryButton';
 ---
 
-<Layout title="Welcome to Elevate!">
-	<div class="grid grid-rows-2 items-center justify-items-center w-screen min-h-screen lg:flex lg:flex-row lg:center pt-16 lg:pt-0"
-		style={{
-			gridTemplateRows: "auto auto"
-		}}
-	>
-		<header class="p-4 py-10 lg:p-20 w-full lg:w-4/5 max-w-xl lg:max-w-3xl">
-			<h1>Freedom Ball</h1>
-			<div class="w-full row center justify-between flex-wrap">
-				<h3 class="pr-4">Scottsdale Ranch Park</h3>
-				<h3>Jan 21, 2022</h3>
-			</div>
-			<p class="my-8 lg:my-16">
-				fsjlafdkjsa;f dkfld jasfkd afjdsakfdljafdk afjdkalf 
-				djak fjdaklf dk dksafljd alkj dkajf dklsaljlkj lkfjd
-				slkajfkldsjaflkjdsakljlk lksdjlkfjdlkj fl
-			</p>
-			<div class="row center justify-between">
-				<a href='/'>
-					<SecondaryButton>More Info</SecondaryButton>
-				</a>
-				<a href="/">
-					<PrimaryButton>Register</PrimaryButton>
-				</a>
-			</div>
-		</header>
-		<img src="/volleyball.png" class="object-cover w-screen h-full max-h-screen lg:h-screen" />
-	</div>
+<Layout title="Elevate Experience - Coming Soon">
+	<Header client:load />
 </Layout>
 
