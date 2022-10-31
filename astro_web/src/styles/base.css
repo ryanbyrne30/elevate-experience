@@ -56,7 +56,7 @@ button.secondary {
 
 .parent,
 .child {
-  @apply w-36 sm:w-52 lg:w-80;
+  @apply w-32 sm:w-44 lg:w-72;
 }
 
 .parent {
@@ -66,7 +66,7 @@ button.secondary {
 }
 
 .child {
-  @apply origin-center absolute top-0 left-0 w-full row center primary font-medium;
+  @apply origin-center absolute top-0 left-0 w-full row center bg-primary font-medium;
   backface-visibility: hidden;
 }
 
