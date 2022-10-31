@@ -48,7 +48,8 @@ export default function Clock() {
   }, []);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setClassName("opacity-100"), 1000);
+    calcDelta();
+    const timeout = setTimeout(() => setClassName("opacity-100"), 100);
     return () => clearTimeout(timeout);
   }, []);
 
