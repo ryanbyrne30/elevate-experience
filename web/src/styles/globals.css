@@ -1,11 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./generic.css";
 
 @layer base {
   :root {
     --primary: 15, 15, 20;
-    --primary-light: 40, 40, 40;
+    --primary-light: 30, 30, 40;
     --primary-dark: 0, 0, 0;
     --secondary: 245, 245, 245;
     --secondary-light: 255, 255, 255;
@@ -40,10 +41,6 @@ h4 {
   @apply font-bold;
 }
 
-.font-condensed {
-  font-family: "Roboto Condensed", sans-serif;
-}
-
 h1 {
   @apply text-4xl lg:text-7xl;
 }
@@ -65,7 +62,7 @@ p {
 }
 
 form {
-  @apply col center w-full max-w-xl p-8;
+  @apply flex w-full max-w-xl flex-col items-center p-8;
 }
 
 label {
@@ -92,24 +89,4 @@ td {
 
 th {
   @apply bg-secondary text-primary;
-}
-
-.border-b-1 {
-  border-bottom: 1px solid;
-}
-
-.row {
-  @apply flex flex-row;
-}
-
-.col {
-  @apply flex flex-col;
-}
-
-.center {
-  @apply items-center;
-}
-
-.group {
-  @apply flex w-full flex-col items-center py-6;
 }
