@@ -7,6 +7,16 @@ export const eventsRouter = createRouter()
       return await ctx.prisma.event.findMany();
     },
   })
+  .query("get", {
+    input: z.object({
+      id: z.number(),
+    }),
+    async resolve({ input, ctx }) {
+      return await ctx.prisma.event.findUniqueOrThrow({
+        where: { id: input.id },
+      });
+    },
+  })
   .mutation("create", {
     input: z.object({
       name: z.string(),

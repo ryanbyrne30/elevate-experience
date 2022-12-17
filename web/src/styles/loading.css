@@ -1,0 +1,15 @@
+.loading-parent {
+  @apply animate-pulse;
+}
+
+.loading {
+  @apply rounded-lg bg-primary-light;
+}
+
+.loading-md {
+  @apply loading p-2;
+}
+
+.loading-lg {
+  @apply loading p-4;
+}

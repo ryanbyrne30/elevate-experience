@@ -1,14 +1,32 @@
 import { displayDate } from "@/utils/formats";
 import { Event } from "@prisma/client";
 import Link from "next/link";
-import { useState } from "react";
 import Button from "../buttons/Button";
-import MoreIcon from "../icons/MoreIcon";
-import EventThumbnailActions from "./EventThumbnailActions";
 
-export default function EventThumbnail({ event }: { event: Event }) {
-  const [actionState, setActionState] = useState(false);
+function Loader() {
+  return (
+    <div className="rounded-2xl bg-primary-light">
+      <div className="col loading-parent h-80 w-80 justify-between p-4 shadow-md">
+        <div className="col h-full justify-between py-4">
+          <div className="loading-lg w-60 bg-primary" />
+          <div className="col w-full">
+            <div className="loading-md my-2 w-full bg-primary" />
+            <div className="loading-md my-2 w-full bg-primary" />
+          </div>
+          <div className="row center w-full justify-between">
+            <div className="loading-md w-20 bg-primary" />
+            <div className="loading-md w-20 bg-primary" />
+          </div>
+        </div>
+        <div className="">
+          <div className="loading-lg w-24 bg-primary" />
+        </div>
+      </div>
+    </div>
+  );
+}
 
+function Cell({ event }: { event: Event }) {
   return (
     <div className="col h-80 w-80 rounded-2xl bg-primary-light p-4 shadow-md">
       <Link href={`/events/${event.id}`}>
@@ -29,27 +47,12 @@ export default function EventThumbnail({ event }: { event: Event }) {
         <Button className="primary" href={`/events/${event.id}/register`}>
           Register
         </Button>
-        {/* <MoreIcon
-          className="cursor-pointer text-2xl"
-          onClick={() => setActionState(true)}
-        />
-        <div
-          className={`row center absolute right-0 top-0 h-full justify-center overflow-hidden bg-primary-light transition-all ${
-            actionState ? "w-full" : "w-0"
-          }`}
-        >
-          <div
-            className={`h-full w-full transition-opacity ${
-              actionState ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <EventThumbnailActions
-              onClose={() => setActionState(false)}
-              event={event}
-            />
-          </div>
-        </div> */}
       </div>
     </div>
   );
+}
+
+export default function EventThumbnail({ event }: { event?: Event }) {
+  if (event === undefined) return <Loader />;
+  return <Cell event={event} />;
 }

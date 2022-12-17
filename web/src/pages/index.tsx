@@ -1,4 +1,4 @@
-import EventThumbnail from "@/components/events/EventThumbnail";
+import EventThumbnails from "@/components/events/EventThumbnails";
 import { trpc } from "@/utils/trpc";
 import Head from "next/head";
 
@@ -13,13 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="buffer-y">
-        <ul className="">
-          {getQuery.data?.map((e) => (
-            <li key={e.id} className="my-4">
-              <EventThumbnail event={e} />
-            </li>
-          ))}
-        </ul>
+        <EventThumbnails events={getQuery.data} />
       </div>
     </>
   );
