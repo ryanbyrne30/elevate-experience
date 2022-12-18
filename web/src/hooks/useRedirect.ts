@@ -3,6 +3,7 @@ import { useEffect } from "react";
 export const useRedirect = (doRedirect: boolean, url: string) => {
   useEffect(() => {
     if (doRedirect) window.location.replace(url);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [doRedirect]);
 };
 

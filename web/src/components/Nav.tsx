@@ -1,10 +1,10 @@
 import BrandIcon from "./icons/BrandIcon";
 import MenuIcon from "./icons/MenuIcon";
-import PrimaryButton from "./buttons/PrimaryButton";
-import SecondaryButton from "./buttons/SecondaryButton";
 import { useEffect, useState } from "react";
 import { ElementProps } from "../types/props";
 import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Button from "./buttons/Button";
 
 function PrimaryMenu() {
   return (
@@ -26,13 +26,28 @@ function PrimaryMenu() {
 }
 
 function SecondaryMenu(props: ElementProps) {
+  const { status } = useSession();
+
+  if (status === "authenticated")
+    return (
+      <ul className={props.className}>
+        <li className="m-2">
+          <Button className="secondary" onClick={() => signOut()}>
+            Sign Out
+          </Button>
+        </li>
+      </ul>
+    );
+
   return (
-    <ul className={`${props.className}`}>
+    <ul className={props.className}>
       <li className="m-2">
-        <SecondaryButton href="/">Sign In</SecondaryButton>
+        <Button className="secondary" onClick={() => signIn()}>
+          Sign In
+        </Button>
       </li>
       <li className="m-2">
-        <PrimaryButton href="/">Sign Up</PrimaryButton>
+        <Button className="primary">Sign Up</Button>
       </li>
     </ul>
   );

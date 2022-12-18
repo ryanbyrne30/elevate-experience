@@ -11,6 +11,10 @@ export const serverSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
   NEXTAUTH_SECRET: z.string(),
   NEXTAUTH_URL: z.string().url(),
+  EMAIL_HOST: z.string(),
+  EMAIL_PORT: z.string().transform((s) => parseInt(s)),
+  EMAIL_FROM: z.string().email(),
+  EMAIL_PASSWORD: z.string(),
 });
 
 /**
