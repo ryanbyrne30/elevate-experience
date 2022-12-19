@@ -1,7 +1,7 @@
 import EventRegisterLink from "./registration/EventRegisterLink";
 import { EventDetails } from "@/types/event";
 
-function EventLoader() {
+function Loader() {
   return (
     <div className="loading-parent w-full p-4">
       <h1 className="loading-lg w-60"></h1>
@@ -19,7 +19,7 @@ function EventLoader() {
   );
 }
 
-function EventCell({ event }: { event: EventDetails }) {
+function Cell({ event }: { event: EventDetails }) {
   return (
     <div className="w-full p-4">
       <h1>{event.name}</h1>
@@ -36,6 +36,6 @@ function EventCell({ event }: { event: EventDetails }) {
 }
 
 export default function EventDisplay({ event }: { event?: EventDetails }) {
-  if (event === undefined) return <EventLoader />;
-  return <EventCell event={event} />;
+  if (event === undefined) return <Loader />;
+  return <Cell event={event} />;
 }

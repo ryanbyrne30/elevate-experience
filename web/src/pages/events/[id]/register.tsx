@@ -1,4 +1,4 @@
-import EventRegister from "@/components/events/EventRegister";
+import EventRegister from "@/components/events/registration/EventRegister";
 import { useParam } from "@/hooks/useParam";
 import { trpc } from "@/utils/trpc";
 import { useEffect, useState } from "react";
