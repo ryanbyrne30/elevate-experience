@@ -10,7 +10,6 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  // Include user.id on session
   callbacks: {
     async signIn({ user, email }) {
       return !email?.verificationRequest || user.id !== user.email;
@@ -20,6 +19,10 @@ export const authOptions: NextAuthOptions = {
         ...token,
         userId: user?.id,
       };
+    },
+    async session({ session, token }) {
+      if (session.user && token.sub) session.user.id = token.sub;
+      return session;
     },
   },
   adapter: PrismaAdapter(prisma),
