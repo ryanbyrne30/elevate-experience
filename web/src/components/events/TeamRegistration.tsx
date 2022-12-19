@@ -1,10 +1,9 @@
-import { Event } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import Button from "../buttons/Button";
 import create from "zustand";
 import { immer } from "zustand/middleware/immer";
 import CloseIcon from "../icons/CloseIcon";
+import Button from "../buttons/Button";
+import { useState } from "react";
 
 type Player = { id?: string; name: string };
 type PlayersStore = {
@@ -15,7 +14,7 @@ type PlayersStore = {
   removePlayer: (name: string) => void;
 };
 
-const usePlayersStore = create(
+export const usePlayersStore = create(
   immer<PlayersStore>((set) => ({
     maxPlayers: 1,
     players: [],
@@ -39,16 +38,23 @@ const usePlayersStore = create(
   }))
 );
 
-function AddedPlayer({
+export function RegisteredPlayer({
   player,
   readOnly,
 }: {
-  player: Player;
+  player?: Player;
   readOnly?: boolean;
 }) {
   const { removePlayer } = usePlayersStore((state) => ({
     removePlayer: state.removePlayer,
   }));
+
+  if (!player)
+    return (
+      <div className="loading-parent row center w-full justify-between rounded bg-primary-light p-2 shadow-md">
+        <div className="loading-md w-20 bg-primary" />
+      </div>
+    );
 
   return (
     <div className="row center w-full justify-between rounded bg-primary-light p-2 shadow-md">
@@ -63,13 +69,37 @@ function AddedPlayer({
   );
 }
 
-export default function TeamRegistration({ event }: { event?: Event }) {
-  const [input, setInput] = useState<string>("");
-  const { data: session, status } = useSession({ required: true });
-  const { players, setMaxPlayers, addPlayer } = usePlayersStore((state) => ({
+export function RegisteredPlayers() {
+  const { data: session } = useSession({ required: true });
+  const { players } = usePlayersStore((state) => ({
     players: state.players,
+  }));
+
+  const username = session?.user?.name || session?.user?.email;
+
+  return (
+    <ol className="w-full">
+      <li className="my-2">
+        <RegisteredPlayer
+          readOnly={true}
+          player={username ? { name: username } : undefined}
+        />
+      </li>
+      {players.map((p, idx) => (
+        <li key={idx} className="my-2">
+          <RegisteredPlayer player={p} />
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+export function RegisterPlayerInput() {
+  const [input, setInput] = useState<string>("");
+  const { players, maxPlayers, addPlayer } = usePlayersStore((state) => ({
+    players: state.players,
+    maxPlayers: state.maxPlayers,
     addPlayer: state.addPlayer,
-    setMaxPlayers: state.setMaxPlayers,
   }));
 
   const addNewPlayer = () => {
@@ -86,56 +116,22 @@ export default function TeamRegistration({ event }: { event?: Event }) {
     }
   };
 
-  useEffect(() => {
-    if (event !== undefined) setMaxPlayers(event.teamSize - 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [event?.teamSize]);
-
-  if (status === "loading" || event === undefined) return <div>Loading...</div>;
+  if (players.length >= maxPlayers) return null;
 
   return (
-    <div className="col center w-full">
-      <div className="group">
-        <span>
-          Team ({players.length + 1}/{event.teamSize})
-        </span>
-        <ol className="w-full">
-          <li className="my-2">
-            <AddedPlayer
-              readOnly={true}
-              player={{
-                name: session.user?.name || session.user?.email || "",
-              }}
-            />
-          </li>
-          {players.map((p, idx) => (
-            <li key={idx} className="my-2">
-              <AddedPlayer player={p} />
-            </li>
-          ))}
-        </ol>
-      </div>
-      {players.length + 1 < event.teamSize && (
-        <div className="group">
-          <label>Player Full Name</label>
-          <div className="row center">
-            <input
-              type="text"
-              placeholder="John Smith"
-              value={input}
-              onChange={(e) => setInput(e.currentTarget.value)}
-            />
-            <Button className="primary ml-1" onClick={addNewPlayer}>
-              Add
-            </Button>
-          </div>
-        </div>
-      )}
-      {players.length + 1 === event.teamSize && (
-        <Button type="submit" className="primary">
-          Register
+    <div className="col">
+      <label>Player full name</label>
+      <div className="row center w-full">
+        <input
+          type="text"
+          placeholder="John Smith"
+          value={input}
+          onChange={(e) => setInput(e.currentTarget.value)}
+        />
+        <Button type="button" className="primary ml-1" onClick={addNewPlayer}>
+          Add
         </Button>
-      )}
+      </div>
     </div>
   );
 }

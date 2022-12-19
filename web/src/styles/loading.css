@@ -7,7 +7,7 @@
 }
 
 .loading-md {
-  @apply loading p-2;
+  @apply loading my-1 h-4;
 }
 
 .loading-lg {
