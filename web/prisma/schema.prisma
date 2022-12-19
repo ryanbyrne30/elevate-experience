@@ -26,30 +26,24 @@ model Event {
   teamSize     Int
   teamEntryFee Float?
 
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  EventTeam EventTeam[]
+  teams Team[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Team {
-  id        String      @id @default(cuid())
-  guests    String?
-  EventTeam EventTeam[]
-  TeamUser  TeamUser[]
-}
+  id     String  @id @default(cuid())
+  guests String?
 
-model EventTeam {
-  eventId Int
-  event   Event  @relation(fields: [eventId], references: [id])
-  team    Team   @relation(fields: [teamId], references: [id])
-  teamId  String
+  teamPlayers TeamPlayer[]
+  eventId     Int
+  event       Event        @relation(fields: [eventId], references: [id])
 
-  @@id([eventId, teamId])
   @@index([eventId])
-  @@index([teamId])
 }
 
-model TeamUser {
+model TeamPlayer {
   team   Team   @relation(fields: [teamId], references: [id])
   teamId String
   user   User   @relation(fields: [userId], references: [id])
@@ -91,14 +85,14 @@ model Session {
 }
 
 model User {
-  id            String     @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String?    @unique
+  email         String?      @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  TeamUser      TeamUser[]
+  teamPlayers   TeamPlayer[]
 }
 
 model VerificationToken {
