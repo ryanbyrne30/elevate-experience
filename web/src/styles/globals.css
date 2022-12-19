@@ -62,8 +62,9 @@ p {
   @apply font-light;
 }
 
-form {
-  @apply flex w-full max-w-xl flex-col items-center p-8;
+form,
+.form {
+  @apply flex w-screen max-w-xl flex-col items-center p-8;
 }
 
 label {

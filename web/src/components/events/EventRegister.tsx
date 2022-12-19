@@ -11,7 +11,10 @@ export default function EventRegister({ event }: { event?: Event }) {
 
   return (
     <div className="form">
-      <h1>Register for {event?.name}</h1>
+      <div className="center group">
+        <span className="font-condensed text-lg">Register for</span>
+        <h1>{event?.name}</h1>
+      </div>
       <TeamRegistration event={event} />
     </div>
   );

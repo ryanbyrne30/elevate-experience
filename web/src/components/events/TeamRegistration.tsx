@@ -94,12 +94,11 @@ export default function TeamRegistration({ event }: { event?: Event }) {
   if (status === "loading" || event === undefined) return <div>Loading...</div>;
 
   return (
-    <div className="col center">
-      <span>
-        Enter players ({players.length + 1}/{event.teamSize})
-      </span>
+    <div className="col center w-full">
       <div className="group">
-        <span>Team</span>
+        <span>
+          Team ({players.length + 1}/{event.teamSize})
+        </span>
         <ol className="w-full">
           <li className="my-2">
             <AddedPlayer
@@ -131,6 +130,11 @@ export default function TeamRegistration({ event }: { event?: Event }) {
             </Button>
           </div>
         </div>
+      )}
+      {players.length + 1 === event.teamSize && (
+        <Button type="submit" className="primary">
+          Register
+        </Button>
       )}
     </div>
   );
