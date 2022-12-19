@@ -9,7 +9,11 @@ export const eventsRouter = createRouter()
         include: {
           teams: {
             include: {
-              teamPlayers: true,
+              teamPlayers: {
+                include: {
+                  user: true,
+                },
+              },
             },
           },
         },
@@ -26,7 +30,11 @@ export const eventsRouter = createRouter()
         include: {
           teams: {
             include: {
-              teamPlayers: true,
+              teamPlayers: {
+                include: {
+                  user: true,
+                },
+              },
             },
           },
         },
