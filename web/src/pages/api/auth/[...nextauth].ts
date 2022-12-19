@@ -12,18 +12,17 @@ export const authOptions: NextAuthOptions = {
   },
   // Include user.id on session
   callbacks: {
-    session({ session, user, token }) {
-      console.log("Token", token);
-      console.log("session", session);
-      console.log("user", user);
-      if (session.user) {
-        session.user.id = user.id;
-      }
-      return session;
+    async signIn({ user, email }) {
+      return !email?.verificationRequest || user.id !== user.email;
+    },
+    async jwt({ token, user }) {
+      return {
+        ...token,
+        userId: user?.id,
+      };
     },
   },
   adapter: PrismaAdapter(prisma),
-  // Configure one or more authentication providers
   providers: [
     EmailProvider({
       server: {

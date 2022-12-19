@@ -26,7 +26,9 @@ function PrimaryMenu() {
 }
 
 function SecondaryMenu(props: ElementProps) {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
+  console.log(status);
+  console.log(session);
 
   if (status === "authenticated")
     return (
