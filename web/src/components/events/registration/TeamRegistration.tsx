@@ -1,8 +1,8 @@
 import { useSession } from "next-auth/react";
 import create from "zustand";
 import { immer } from "zustand/middleware/immer";
-import CloseIcon from "../icons/CloseIcon";
-import Button from "../buttons/Button";
+import CloseIcon from "../../icons/CloseIcon";
+import Button from "../../buttons/Button";
 import { useState } from "react";
 
 type Player = { id?: string; name: string };

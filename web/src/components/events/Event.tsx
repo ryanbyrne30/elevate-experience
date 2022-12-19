@@ -1,4 +1,4 @@
-import EventRegisterLink from "./EventRegisterLink";
+import EventRegisterLink from "./registration/EventRegisterLink";
 import { EventDetails } from "@/types/event";
 
 function EventLoader() {

@@ -1,5 +1,5 @@
 import { EventDetails } from "@/types/event";
-import Button from "../buttons/Button";
+import Button from "../../buttons/Button";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
