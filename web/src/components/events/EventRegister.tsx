@@ -66,7 +66,12 @@ export default function EventRegister({ event }: { event?: EventDetails }) {
         <div className="group">
           <RegisterPlayerInput />
           {event?.teamSize && players.length + 1 === event.teamSize && (
-            <Button type="submit" className="primary">
+            <Button
+              type="submit"
+              className="primary"
+              isLoading={registerMutation.isLoading}
+              loadingMessage="Registering team..."
+            >
               Register
             </Button>
           )}

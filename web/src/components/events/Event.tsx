@@ -1,5 +1,5 @@
-import { Event } from "@prisma/client";
-import Button from "../buttons/Button";
+import EventRegisterLink from "./EventRegisterLink";
+import { EventDetails } from "@/types/event";
 
 function EventLoader() {
   return (
@@ -19,7 +19,7 @@ function EventLoader() {
   );
 }
 
-function EventCell({ event }: { event: Event }) {
+function EventCell({ event }: { event: EventDetails }) {
   return (
     <div className="w-full p-4">
       <h1>{event.name}</h1>
@@ -29,15 +29,13 @@ function EventCell({ event }: { event: Event }) {
       </div>
       <p>{event.description}</p>
       <div className="row center w-full justify-center pt-8">
-        <Button className="primary" href={`/events/${event.id}/register`}>
-          Register
-        </Button>
+        <EventRegisterLink event={event} />
       </div>
     </div>
   );
 }
 
-export default function EventDisplay({ event }: { event?: Event }) {
+export default function EventDisplay({ event }: { event?: EventDetails }) {
   if (event === undefined) return <EventLoader />;
   return <EventCell event={event} />;
 }

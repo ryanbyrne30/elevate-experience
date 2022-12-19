@@ -1,6 +1,6 @@
 import { displayDate } from "@/utils/formats";
 import Link from "next/link";
-import EventRegisterLink from "./EventRegisterButton";
+import EventRegisterLink from "./EventRegisterLink";
 import { EventDetails } from "@/types/event";
 
 function Loader() {

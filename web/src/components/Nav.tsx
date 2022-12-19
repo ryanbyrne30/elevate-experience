@@ -47,7 +47,9 @@ function SecondaryMenu(props: ElementProps) {
         </Button>
       </li>
       <li className="m-2">
-        <Button className="primary">Sign Up</Button>
+        <Button className="primary" href="/auth/register">
+          Sign Up
+        </Button>
       </li>
     </ul>
   );
