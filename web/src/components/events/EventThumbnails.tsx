@@ -1,5 +1,5 @@
-import { Event } from "@prisma/client";
 import EventThumbnail from "./EventThumbnail";
+import { EventDetails } from "@/types/event";
 
 function Loader() {
   return (
@@ -17,7 +17,7 @@ function Loader() {
   );
 }
 
-function Cell({ events }: { events: Event[] }) {
+function Cell({ events }: { events: EventDetails[] }) {
   return (
     <ul>
       {events.map((e) => (
@@ -29,7 +29,11 @@ function Cell({ events }: { events: Event[] }) {
   );
 }
 
-export default function EventThumbnails({ events }: { events?: Event[] }) {
+export default function EventThumbnails({
+  events,
+}: {
+  events?: EventDetails[];
+}) {
   if (events === undefined) return <Loader />;
   return <Cell events={events} />;
 }

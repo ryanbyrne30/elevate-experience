@@ -1,4 +1,3 @@
-import { Event } from "@prisma/client";
 import {
   RegisterPlayerInput,
   RegisteredPlayers,
@@ -6,22 +5,42 @@ import {
 } from "./TeamRegistration";
 import Button from "../buttons/Button";
 import { FormEvent, useEffect } from "react";
+import { trpc } from "@/utils/trpc";
+import FormError from "../FormError";
+import { useRedirect } from "@/hooks/useRedirect";
+import { EventDetails } from "@/types/event";
 
-export default function EventRegister({ event }: { event?: Event }) {
+export default function EventRegister({ event }: { event?: EventDetails }) {
   const { players, setMaxPlayers } = usePlayersStore((state) => ({
     players: state.players,
     setMaxPlayers: state.setMaxPlayers,
   }));
+  const registerMutation = trpc.useMutation(["protectedEvents.register"]);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    alert("Submitted");
+    if (event === undefined) throw "No event given.";
+    const guests = players
+      .map((p) => {
+        return p.id === undefined ? p.name : null;
+      })
+      .filter((g) => g !== null) as string[];
+    const userIds = players
+      .map((p) => p.id)
+      .filter((uid) => uid !== undefined) as string[];
+    registerMutation.mutate({
+      eventId: event.id,
+      guests,
+      userIds,
+    });
   };
 
   useEffect(() => {
     if (event !== undefined) setMaxPlayers(event.teamSize - 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [event?.teamSize]);
+
+  useRedirect(registerMutation.isSuccess, `/events/${event?.id}`);
 
   return (
     <form onSubmit={onSubmit}>
@@ -40,6 +59,9 @@ export default function EventRegister({ event }: { event?: Event }) {
             {event !== undefined && `(${players.length + 1}/${event.teamSize})`}
           </span>
           <RegisteredPlayers />
+        </div>
+        <div className="group">
+          <FormError error={registerMutation.error} />
         </div>
         <div className="group">
           <RegisterPlayerInput />

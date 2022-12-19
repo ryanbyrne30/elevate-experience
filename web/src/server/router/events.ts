@@ -5,7 +5,15 @@ import { TRPCError } from "@trpc/server";
 export const eventsRouter = createRouter()
   .query("getAll", {
     async resolve({ ctx }) {
-      return await ctx.prisma.event.findMany();
+      return await ctx.prisma.event.findMany({
+        include: {
+          teams: {
+            include: {
+              teamPlayers: true,
+            },
+          },
+        },
+      });
     },
   })
   .query("get", {
