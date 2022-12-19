@@ -3,6 +3,7 @@
 @tailwind utilities;
 @import "./generic.css";
 @import "./loading.css";
+@import "./assets.css";
 
 @layer base {
   :root {
