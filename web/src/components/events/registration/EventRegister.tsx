@@ -9,8 +9,11 @@ import { trpc } from "@/utils/trpc";
 import FormError from "../../FormError";
 import { useRedirect } from "@/hooks/useRedirect";
 import { EventDetails } from "@/types/event";
+import { useSession } from "next-auth/react";
+import SignInButton from "@/components/buttons/SignInButton";
 
 export default function EventRegister({ event }: { event?: EventDetails }) {
+  const { data: session } = useSession({ required: true });
   const { players, setMaxPlayers } = usePlayersStore((state) => ({
     players: state.players,
     setMaxPlayers: state.setMaxPlayers,
@@ -41,6 +44,13 @@ export default function EventRegister({ event }: { event?: EventDetails }) {
   }, [event?.teamSize]);
 
   useRedirect(registerMutation.isSuccess, `/events/${event?.id}`);
+  if (session === null)
+    return (
+      <div className="col center">
+        <span className="my-2">You must sign in to register.</span>
+        <SignInButton />
+      </div>
+    );
 
   return (
     <form onSubmit={onSubmit}>

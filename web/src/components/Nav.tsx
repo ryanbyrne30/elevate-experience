@@ -5,6 +5,7 @@ import { ElementProps } from "../types/props";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Button from "./buttons/Button";
+import SignInButton from "./buttons/SignInButton";
 
 function PrimaryMenu() {
   return (
@@ -42,9 +43,7 @@ function SecondaryMenu(props: ElementProps) {
   return (
     <ul className={props.className}>
       <li className="m-2">
-        <Button className="secondary" onClick={() => signIn()}>
-          Sign In
-        </Button>
+        <SignInButton />
       </li>
       <li className="m-2">
         <Button className="primary" href="/auth/register">

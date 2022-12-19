@@ -59,7 +59,7 @@ h4 {
 }
 
 p {
-  @apply font-light;
+  @apply font-normal;
 }
 
 form,
@@ -86,9 +86,5 @@ table {
 }
 
 td {
-  @apply h-8 w-16 text-ellipsis whitespace-nowrap border-2 border-primary-light px-6 py-2;
-}
-
-th {
-  @apply bg-secondary text-primary;
+  @apply py-1 px-2 font-normal;
 }

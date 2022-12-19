@@ -23,9 +23,13 @@
 }
 
 .buffer-y {
-  @apply py-16;
+  @apply py-12 sm:py-16;
 }
 
 .meta {
   @apply text-sm font-bold text-secondary-dark opacity-80;
+}
+
+.table-v th {
+  @apply text-left;
 }
