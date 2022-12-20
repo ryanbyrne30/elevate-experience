@@ -30,8 +30,6 @@ function Header() {
     };
   }, []);
 
-  console.log(state);
-
   return (
     <header
       id="home"
@@ -68,7 +66,7 @@ export default function Home() {
         <meta name="description" content="Welcome to Elevate Experience." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="buffer-y col center h-screen w-screen justify-center overflow-x-hidden">
+      <div className="col center h-screen w-screen justify-center overflow-hidden">
         <Header />
         <div className="my-4">
           <Button href="/events" className="primary">
