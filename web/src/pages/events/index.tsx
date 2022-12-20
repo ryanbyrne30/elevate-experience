@@ -5,7 +5,7 @@ export default function EventsPage() {
   const getQuery = trpc.useQuery(["events.getAll"]);
 
   return (
-    <div className="buffer-y">
+    <div className="">
       <EventThumbnails events={getQuery.data} />
     </div>
   );

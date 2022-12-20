@@ -33,3 +33,7 @@
 .table-v th {
   @apply text-left;
 }
+
+.table-v td {
+  @apply text-right;
+}

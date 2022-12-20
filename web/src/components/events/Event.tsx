@@ -21,8 +21,8 @@ function Cell({ event }: { event: EventDetails }) {
         <h1 className="text-center">{event.name}</h1>
       </header>
       <TabDisplay titles={["Details", `Teams (${event.teams.length})`]}>
-        <TabPage className="col center">
-          <table className="table-v my-4">
+        <TabPage className="col center p-4">
+          <table className="table-v my-4 w-full">
             <tbody>
               <tr>
                 <th>Date:</th>

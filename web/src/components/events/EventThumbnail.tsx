@@ -1,7 +1,5 @@
-import { displayDate } from "@/utils/formats";
-import Link from "next/link";
-import EventRegisterLink from "./registration/EventRegisterLink";
 import { EventDetails } from "@/types/event";
+import EventDisplay from "./Event";
 
 function Loader() {
   return (
@@ -28,24 +26,8 @@ function Loader() {
 
 function Cell({ event }: { event: EventDetails }) {
   return (
-    <div className="col h-80 w-80 rounded-2xl bg-primary-light p-4 shadow-md">
-      <Link href={`/events/${event.id}`}>
-        <div className="col h-full cursor-pointer justify-between py-4">
-          <span className="font-condensed text-2xl font-bold">
-            {event.name}
-          </span>
-          <p className="max-w-full overflow-hidden text-ellipsis line-clamp-2">
-            {event.description}
-          </p>
-          <div className="row center meta w-full justify-between">
-            <span>{event.location}</span>
-            <span>{displayDate(event.date)}</span>
-          </div>
-        </div>
-      </Link>
-      <div className="row center relative mt-4 w-full justify-between py-2">
-        <EventRegisterLink event={event} />
-      </div>
+    <div className="h-full w-full max-w-lg">
+      <EventDisplay event={event} />
     </div>
   );
 }

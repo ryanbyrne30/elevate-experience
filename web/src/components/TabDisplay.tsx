@@ -22,7 +22,7 @@ function TabTitle({ title, index }: { title: string; index: number }) {
     <span
       onClick={() => setTabNumber(index)}
       className={`cursor-pointer rounded p-2 text-center transition-all ${
-        tabNumber === index ? "bg-gray-700" : ""
+        tabNumber === index ? "bg-gray-700" : "text-gray-400"
       }`}
     >
       {title}
