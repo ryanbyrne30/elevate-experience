@@ -6,6 +6,11 @@ export const eventsRouter = createRouter()
   .query("getAll", {
     async resolve({ ctx }) {
       return await ctx.prisma.event.findMany({
+        where: {
+          date: {
+            gte: new Date(),
+          },
+        },
         include: {
           teams: {
             include: {
@@ -16,6 +21,9 @@ export const eventsRouter = createRouter()
               },
             },
           },
+        },
+        orderBy: {
+          date: "asc",
         },
       });
     },

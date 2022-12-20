@@ -3,17 +3,14 @@ import { EventDetails } from "@/types/event";
 
 function Loader() {
   return (
-    <ul>
-      <li className="my-4">
-        <EventThumbnail />
-      </li>
-      <li className="my-4">
-        <EventThumbnail />
-      </li>
-      <li className="my-4">
-        <EventThumbnail />
-      </li>
-    </ul>
+    <div className="h-screen w-screen overflow-hidden">
+      <ul className="h-screen w-screen snap-y snap-mandatory overflow-y-scroll">
+        <li className="col center h-screen w-screen snap-center justify-start pt-12 sm:pt-16">
+          <EventThumbnail />
+        </li>
+      </ul>
+      <EventThumbnail />
+    </div>
   );
 }
 

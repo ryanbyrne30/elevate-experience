@@ -2,6 +2,13 @@ import TabDisplay, { TabPage } from "../TabDisplay";
 import EventRegisterLink from "./registration/EventRegisterLink";
 import { EventDetails } from "@/types/event";
 import RegisteredTeams from "./registration/RegisteredTeams";
+import { displayDateTime } from "@/utils/formats";
+
+function EventEntryFee({ teamEntryFee }: { teamEntryFee?: number | null }) {
+  if (!teamEntryFee) return <span>Pending</span>;
+  if (teamEntryFee === 0) return <span>Free</span>;
+  return <span>${teamEntryFee} per team</span>;
+}
 
 function Loader() {
   return (
@@ -25,12 +32,18 @@ function Cell({ event }: { event: EventDetails }) {
           <table className="table-v my-4 w-full">
             <tbody>
               <tr>
-                <th>Date:</th>
-                <td>{event.date.toLocaleString()}</td>
+                <th>When:</th>
+                <td>{displayDateTime(event.date)}</td>
               </tr>
               <tr>
-                <th>Location:</th>
+                <th>Where:</th>
                 <td>{event.location}</td>
+              </tr>
+              <tr>
+                <th>Entry:</th>
+                <td>
+                  <EventEntryFee teamEntryFee={event.teamEntryFee} />
+                </td>
               </tr>
             </tbody>
           </table>
