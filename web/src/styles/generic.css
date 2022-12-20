@@ -23,7 +23,11 @@
 }
 
 .buffer-y {
-  @apply py-12 sm:py-16;
+  @apply py-14 sm:py-16;
+}
+
+.buffer-t {
+  @apply pt-14 sm:pt-16;
 }
 
 .meta {

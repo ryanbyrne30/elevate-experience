@@ -20,7 +20,7 @@ function PrimaryMenu() {
         <Link href="/">About</Link>
       </li>
       <li className="m-2">
-        <Link href="/">Contact</Link>
+        <Link href="/contact">Contact</Link>
       </li>
     </ul>
   );
