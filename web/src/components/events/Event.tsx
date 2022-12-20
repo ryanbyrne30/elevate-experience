@@ -24,8 +24,11 @@ function Loader() {
 function Cell({ event }: { event: EventDetails }) {
   return (
     <div className="col w-full overflow-x-hidden p-4">
-      <header className="col mb-4">
+      <header className="col">
         <h1 className="text-center">{event.name}</h1>
+        <div className="row center w-full justify-center py-4">
+          <EventRegisterLink event={event} />
+        </div>
       </header>
       <TabDisplay titles={["Details", `Teams (${event.teams.length})`]}>
         <TabPage className="col center p-4">
@@ -48,9 +51,6 @@ function Cell({ event }: { event: EventDetails }) {
             </tbody>
           </table>
           <p className="py-8">{event.description}</p>
-          <div className="row center w-full justify-center pt-8">
-            <EventRegisterLink event={event} />
-          </div>
         </TabPage>
         <TabPage>
           <RegisteredTeams event={event} />
