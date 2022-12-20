@@ -5,18 +5,11 @@ import RegisteredTeams from "./registration/RegisteredTeams";
 
 function Loader() {
   return (
-    <div className="loading-parent w-full p-4">
-      <h1 className="loading-lg w-60"></h1>
-      <div className="row center w-full justify-between py-8">
-        <div className="loading-md w-20" />
-        <div className="loading-md w-20" />
-      </div>
-      <div className="loading-md my-2 w-full" />
-      <div className="loading-md my-2 w-full" />
-      <div className="loading-md my-2 w-full" />
-      <div className="row center w-full justify-center pt-8">
-        <div className="loading-lg my-2 w-20" />
-      </div>
+    <div className="col loading-parent w-full overflow-x-hidden p-4">
+      <header className="col center mb-4">
+        <div className="loading-md w-44 text-center" />
+      </header>
+      <div className="h-96 w-full rounded-md bg-primary-light" />
     </div>
   );
 }
