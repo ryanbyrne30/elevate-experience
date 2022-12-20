@@ -71,7 +71,7 @@ export default function Nav() {
   return (
     <nav id="nav" className="fixed top-0 left-0 z-50 w-screen bg-primary">
       <div className="row center w-screen justify-between p-2 md:p-1 md:px-4">
-        <BrandIcon href="/" className="text-3xl" />
+        <BrandIcon href="/" className="h-10 w-10" />
         <div onClick={() => setIsOpen(!isOpen)}>
           <MenuIcon className="cursor-pointer text-3xl md:hidden" />
           <SecondaryMenu className="hidden md:flex md:flex-row" />

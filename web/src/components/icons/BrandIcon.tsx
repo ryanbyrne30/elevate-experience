@@ -1,11 +1,16 @@
-import type { IconProps } from "@/types/props";
-import { BiConfused } from "react-icons/bi";
-import Icon from "./Icon";
+import Image from "next/image";
+import { HTMLAttributes } from "react";
 
-export default function BrandIcon(props: IconProps & { href?: string }) {
+export default function BrandIcon(
+  props: HTMLAttributes<HTMLDivElement> & { href?: string }
+) {
+  const { className, href, ...rest } = props;
+
   return (
-    <Icon {...props}>
-      <BiConfused {...props} />
-    </Icon>
+    <div className={`${className || ""} relative`} {...rest}>
+      <a href={href}>
+        <Image src="/logo-white.webp" layout="fill" alt="Logo" />
+      </a>
+    </div>
   );
 }
