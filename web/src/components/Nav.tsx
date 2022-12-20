@@ -33,6 +33,9 @@ function SecondaryMenu(props: ElementProps) {
     return (
       <ul className={props.className}>
         <li className="m-2">
+          <Link href="/profile">Profile</Link>
+        </li>
+        <li className="m-2">
           <Button className="secondary" onClick={() => signOut()}>
             Sign Out
           </Button>
@@ -81,7 +84,7 @@ export default function Nav() {
         md:w-fit md:-translate-x-1/2 md:-translate-y-1/2`}
         >
           <PrimaryMenu />
-          <SecondaryMenu className="center flex flex-col p-4 md:hidden" />
+          <SecondaryMenu className="center flex flex-col md:hidden" />
         </div>
       </div>
     </nav>
