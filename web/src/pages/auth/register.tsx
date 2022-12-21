@@ -33,7 +33,7 @@ export default function RegisterPage() {
     <div className="buffer-y">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="group">
-          <label>First name</label>
+          <label className="required">First name</label>
           <input
             required
             type="text"
@@ -42,7 +42,7 @@ export default function RegisterPage() {
           />
         </div>
         <div className="group">
-          <label>Last name</label>
+          <label className="required">Last name</label>
           <input
             required
             type="text"
@@ -51,7 +51,7 @@ export default function RegisterPage() {
           />
         </div>
         <div className="group">
-          <label>Email</label>
+          <label className="required">Email</label>
           <input
             required
             type="email"

@@ -15,6 +15,7 @@ export const serverSchema = z.object({
   EMAIL_PORT: z.string().transform((s) => parseInt(s)),
   EMAIL_FROM: z.string().email(),
   EMAIL_PASSWORD: z.string(),
+  SUPPORT_EMAIL: z.string().email(),
 });
 
 /**

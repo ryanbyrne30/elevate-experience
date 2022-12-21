@@ -1,9 +1,33 @@
-import DisplayFormError from "@/components/FormError";
+import DisplayFormError, { FormError } from "@/components/FormError";
 import Socials from "@/components/Socials";
 import Button from "@/components/buttons/Button";
+import { trpc } from "@/utils/trpc";
 import Link from "next/link";
+import { useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
+import { z } from "zod";
 
 export default function ContactPage() {
+  const { register, handleSubmit, reset } = useForm();
+  const [error, setError] = useState<FormError>(null);
+  const sendMutation = trpc.useMutation(["user.sendFeedback"]);
+
+  const onSubmit = (data: FieldValues) => {
+    const parseResult = z
+      .object({
+        message: z.string().min(1, "Cannot send an empty message."),
+      })
+      .safeParse(data);
+    if (!parseResult.success) return setError(parseResult.error);
+    sendMutation.mutate({ message: parseResult.data.message });
+  };
+
+  if (sendMutation.isSuccess) {
+    reset();
+    alert("Thank you for your feedback!");
+    window.location.reload();
+  }
+
   return (
     <div className="buffer-t col center w-full px-4">
       <h1 className="mb-4 text-center">We&apos;d Love to Hear From You!</h1>
@@ -13,18 +37,31 @@ export default function ContactPage() {
         <li>Things we can improve on?</li>
         <li>Just want to say hi?</li>
       </ul>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <span className="font-condensed my-4 text-2xl font-bold">
           Hit us up!
         </span>
         <Socials />
         <div className="group">
           <label className="required">Message</label>
-          <textarea required rows={4} placeholder="Give us some feedback..." />
+          <textarea
+            required
+            rows={4}
+            placeholder="Give us some feedback..."
+            {...register("message")}
+          />
         </div>
-        <DisplayFormError error={null} />
+        <DisplayFormError error={error} />
+        <DisplayFormError error={sendMutation.error} />
         <div className="group">
-          <Button className="primary">Send message</Button>
+          <Button
+            className="primary"
+            type="submit"
+            isLoading={sendMutation.isLoading}
+            loadingMessage="Sending message..."
+          >
+            Send message
+          </Button>
         </div>
       </form>
       <div className="col center h-40 w-screen justify-center bg-gray-900 p-4 text-gray-300">
