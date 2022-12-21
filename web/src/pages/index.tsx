@@ -1,3 +1,4 @@
+import Socials from "@/components/Socials";
 import Button from "@/components/buttons/Button";
 import Head from "next/head";
 import { HTMLAttributes, useEffect, useState } from "react";
@@ -67,11 +68,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="col center h-screen w-screen justify-center overflow-hidden">
-        <Header />
-        <div className="my-4">
+        <div className="group">
+          <Header />
+        </div>
+        <div className="group">
           <Button href="/events" className="primary">
             Events
           </Button>
+        </div>
+        <div className="group">
+          <span className="font-condensed text-lg">Follow Us</span>
+          <Socials />
         </div>
       </div>
     </>
