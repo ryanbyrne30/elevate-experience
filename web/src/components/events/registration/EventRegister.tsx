@@ -7,7 +7,6 @@ import Button from "../../buttons/Button";
 import { FormEvent, useEffect, useState } from "react";
 import { trpc } from "@/utils/trpc";
 import FormError from "../../FormError";
-import { useRedirect } from "@/hooks/useRedirect";
 import { EventDetails } from "@/types/event";
 import { useSession } from "next-auth/react";
 import SignInButton from "@/components/buttons/SignInButton";

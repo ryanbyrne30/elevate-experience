@@ -1,4 +1,3 @@
-import Button from "@/components/buttons/Button";
 import EventDisplay from "@/components/events/Event";
 import { useParam } from "@/hooks/useParam";
 import { trpc } from "@/utils/trpc";
