@@ -18,13 +18,14 @@ generator js {
 }
 
 model Event {
-  id           Int      @id @default(autoincrement())
-  name         String
-  description  String?  @db.Text
-  location     String?
-  date         DateTime
-  teamSize     Int
-  teamEntryFee Float?
+  id              Int      @id @default(autoincrement())
+  name            String
+  description     String?  @db.Text
+  location        String?
+  date            DateTime
+  teamSize        Int
+  teamEntryFee    Float?
+  stripeProductId String?
 
   teams Team[]
 

@@ -1,6 +1,8 @@
+import Button from "@/components/buttons/Button";
 import EventDisplay from "@/components/events/Event";
 import { useParam } from "@/hooks/useParam";
 import { trpc } from "@/utils/trpc";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function EventPage() {
@@ -21,6 +23,11 @@ export default function EventPage() {
 
   return (
     <div className="col center buffer-y w-full">
+      <Link href="/events">
+        <div className="w-full cursor-pointer p-4 text-left underline">
+          Back to all events
+        </div>
+      </Link>
       <EventDisplay event={getQuery.data} />
     </div>
   );
