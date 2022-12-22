@@ -35,7 +35,9 @@ function SecondaryMenu(props: ElementProps) {
       <ul className={props.className}>
         <li className="m-2">
           <Link href="/profile">
-            <ProfileIcon className="cursor-pointer text-3xl" />
+            <span>
+              <ProfileIcon className="cursor-pointer text-3xl" />
+            </span>
           </Link>
         </li>
         <li className="m-2">

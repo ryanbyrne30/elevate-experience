@@ -86,6 +86,10 @@ export default function EventRegister({ event }: { event?: EventDetails }) {
   return (
     <form>
       <div className="group">
+        <span className="text-sm">{event?.name}</span>
+        <h1>Register Team</h1>
+      </div>
+      <div className="group">
         <AddedPlayers />
       </div>
       <AddPlayerInput />

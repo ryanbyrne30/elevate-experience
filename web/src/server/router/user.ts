@@ -73,4 +73,37 @@ export const userRouter = createRouter()
       const response = await sendEmailHtml(env.SUPPORT_EMAIL, "Feedback", html);
       console.log("Response", response);
     },
+  })
+  .query("search", {
+    input: z.object({
+      query: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      return await ctx.prisma.user.findMany({
+        where: {
+          OR: [
+            {
+              username: {
+                contains: input.query,
+              },
+            },
+            {
+              username: {
+                contains: input.query.toLowerCase(),
+              },
+            },
+            {
+              name: {
+                contains: input.query,
+              },
+            },
+            {
+              name: {
+                contains: input.query.toLowerCase(),
+              },
+            },
+          ],
+        },
+      });
+    },
   });
