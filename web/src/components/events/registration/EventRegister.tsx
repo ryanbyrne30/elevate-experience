@@ -1,46 +1,42 @@
-import {
-  RegisterPlayerInput,
-  RegisteredPlayers,
-  usePlayersStore,
-} from "./TeamRegistration";
-import Button from "../../buttons/Button";
 import { FormEvent, useEffect, useState } from "react";
 import { trpc } from "@/utils/trpc";
-import FormError from "../../FormError";
 import { EventDetails } from "@/types/event";
 import { useSession } from "next-auth/react";
 import SignInButton from "@/components/buttons/SignInButton";
 import { loadStripe } from "@stripe/stripe-js";
 import { env } from "@/env/client.mjs";
 import { useParam } from "@/hooks/useParam";
+import AddPlayerInput from "./AddPlayerInput";
+import AddedPlayers from "./AddedPlayers";
+import { usePlayersStore } from "./playerStore";
 
 export default function EventRegister({ event }: { event?: EventDetails }) {
   const stripeStatus = useParam("status");
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession({ required: true });
-  const { players, setMaxPlayers } = usePlayersStore((state) => ({
-    players: state.players,
+  const { setMaxPlayers } = usePlayersStore((state) => ({
     setMaxPlayers: state.setMaxPlayers,
   }));
+
   const registerMutation = trpc.useMutation(["protectedEvents.register"]);
   const unregisterMutation = trpc.useMutation(["protectedEvents.unregister"]);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (event === undefined) throw "No event given.";
-    const guests = players
-      .map((p) => {
-        return p.id === undefined ? p.name : null;
-      })
-      .filter((g) => g !== null) as string[];
-    const userIds = players
-      .map((p) => p.id)
-      .filter((uid) => uid !== undefined) as string[];
-    registerMutation.mutate({
-      eventId: event.id,
-      guests,
-      userIds,
-    });
+    // if (event === undefined) throw "No event given.";
+    // const guests = players
+    //   .map((p) => {
+    //     return p.id === undefined ? p.name : null;
+    //   })
+    //   .filter((g) => g !== null) as string[];
+    // const userIds = players
+    //   .map((p) => p.id)
+    //   .filter((uid) => uid !== undefined) as string[];
+    // registerMutation.mutate({
+    //   eventId: event.id,
+    //   guests,
+    //   userIds,
+    // });
   };
 
   const makePayment = async (sessionId: string) => {
@@ -57,7 +53,6 @@ export default function EventRegister({ event }: { event?: EventDetails }) {
   };
 
   useEffect(() => {
-    console.log(event, stripeStatus);
     if (event === undefined) return;
     if (stripeStatus === "cancel")
       unregisterMutation.mutate({
@@ -89,40 +84,49 @@ export default function EventRegister({ event }: { event?: EventDetails }) {
     );
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="center group">
-        <span className="font-condensed text-lg">Register for</span>
-        {event === undefined ? (
-          <h1 className="loading-lg loading-parent my-1 w-60" />
-        ) : (
-          <h1>{event?.name}</h1>
-        )}
+    <form>
+      <div className="group">
+        <AddedPlayers />
       </div>
-      <div className="col center w-full">
-        <div className="group">
-          <span>
-            Team{" "}
-            {event !== undefined && `(${players.length + 1}/${event.teamSize})`}
-          </span>
-          <RegisteredPlayers />
-        </div>
-        <div className="group">
-          <FormError error={registerMutation.error} />
-        </div>
-        <div className="group">
-          <RegisterPlayerInput />
-          {event?.teamSize && players.length + 1 === event.teamSize && (
-            <Button
-              type="submit"
-              className="primary"
-              isLoading={registerMutation.isLoading || loading}
-              loadingMessage="Registering team..."
-            >
-              Register
-            </Button>
-          )}
-        </div>
-      </div>
+      <AddPlayerInput />
     </form>
   );
+
+  // return (
+  //   <form onSubmit={onSubmit}>
+  //     <div className="center group">
+  //       <span className="font-condensed text-lg">Register for</span>
+  //       {event === undefined ? (
+  //         <h1 className="loading-lg loading-parent my-1 w-60" />
+  //       ) : (
+  //         <h1>{event?.name}</h1>
+  //       )}
+  //     </div>
+  //     <div className="col center w-full">
+  //       <div className="group">
+  //         <span>
+  //           Team{" "}
+  //           {event !== undefined && `(${players.length + 1}/${event.teamSize})`}
+  //         </span>
+  //         <RegisteredPlayers />
+  //       </div>
+  //       <div className="group">
+  //         <FormError error={registerMutation.error} />
+  //       </div>
+  //       <div className="group">
+  //         <RegisterPlayerInput />
+  //         {event?.teamSize && players.length + 1 === event.teamSize && (
+  //           <Button
+  //             type="submit"
+  //             className="primary"
+  //             isLoading={registerMutation.isLoading || loading}
+  //             loadingMessage="Registering team..."
+  //           >
+  //             Register
+  //           </Button>
+  //         )}
+  //       </div>
+  //     </div>
+  //   </form>
+  // );
 }
