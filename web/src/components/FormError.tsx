@@ -9,13 +9,12 @@ export type FormError =
 
 export default function DisplayFormError({
   error,
-  className,
   itemClassName,
 }: {
   error: FormError;
-  className?: string;
   itemClassName?: string;
 }) {
+  const className = "text-error italic";
   if (!error) return <span></span>;
 
   if (typeof error === "string")

@@ -9,15 +9,32 @@ export const userRouter = createRouter()
     input: z.object({
       email: z.string().email(),
       name: z.string().min(1).regex(new RegExp("[a-zA-Z]+( [a-zA-Z]+)+")),
+      username: z
+        .string()
+        .min(1)
+        .regex(
+          new RegExp("[a-zA-Z0-9_]+"),
+          "Username must only contain alphanumeric characters and underscores."
+        ),
     }),
     async resolve({ input, ctx }) {
-      const existingUser = await ctx.prisma.user.findUnique({
-        where: { email: input.email },
+      const existingUsers = await ctx.prisma.user.findMany({
+        where: {
+          OR: [{ email: input.email }, { username: input.username }],
+        },
       });
-      if (existingUser !== null)
+      if (existingUsers.length > 0 && existingUsers[0]?.email === input.email)
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: "Email already exists",
+        });
+      if (
+        existingUsers.length > 0 &&
+        existingUsers[0]?.username === input.username
+      )
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Username already exists",
         });
       return await ctx.prisma.user.create({
         data: {

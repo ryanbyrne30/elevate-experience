@@ -39,6 +39,12 @@ export const authOptions: NextAuthOptions = {
       from: env.EMAIL_FROM,
     }),
   ],
+  pages: {
+    signIn: "/auth/signIn",
+    newUser: "/auth/register",
+    error: "/auth/error",
+    verifyRequest: "/auth/verify",
+  },
 };
 
 export default NextAuth(authOptions);

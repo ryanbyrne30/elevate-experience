@@ -1,12 +1,13 @@
 import DisplayFormError from "@/components/FormError";
 import Button from "@/components/buttons/Button";
+import { useRedirect } from "@/hooks/useRedirect";
 import { trpc } from "@/utils/trpc";
-import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
 export default function RegisterPage() {
+  const [credential, setCredential] = useState<string | null>(null);
   const [error, setError] = useState<z.ZodError | null>(null);
   const { register, handleSubmit } = useForm();
   const registerMutation = trpc.useMutation(["user.register"]);
@@ -17,23 +18,35 @@ export default function RegisterPage() {
         firstName: z.string().min(1, "First name is required."),
         lastName: z.string().min(1, "Last name is required."),
         email: z.string().email(),
+        username: z
+          .string()
+          .regex(
+            new RegExp("[a-zA-Z0-9_]+"),
+            "Username requires alphanumeric characters or underscores"
+          ),
       })
       .safeParse(data);
     if (!parseResult.success) return setError(parseResult.error);
-    const { email, firstName, lastName } = parseResult.data;
+    const { email, firstName, lastName, username } = parseResult.data;
+    setCredential(email);
     registerMutation.mutate({
       email: email,
       name: firstName + " " + lastName,
+      username,
     });
   };
 
-  if (registerMutation.isSuccess) signIn();
+  useRedirect(
+    registerMutation.isSuccess && credential !== null,
+    "/auth/signIn"
+  );
 
   return (
     <div className="buffer-y">
       <form onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="text-center">Create Your Account</h1>
         <div className="group">
-          <label className="required">First name</label>
+          <label className="required">First Name</label>
           <input
             required
             type="text"
@@ -42,12 +55,21 @@ export default function RegisterPage() {
           />
         </div>
         <div className="group">
-          <label className="required">Last name</label>
+          <label className="required">Last Name</label>
           <input
             required
             type="text"
             placeholder="Smith"
             {...register("lastName")}
+          />
+        </div>
+        <div className="group">
+          <label className="required">Display Name</label>
+          <input
+            required
+            type="text"
+            placeholder="John_Smith13"
+            {...register("username")}
           />
         </div>
         <div className="group">
