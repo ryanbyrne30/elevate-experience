@@ -6,6 +6,7 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import Button from "./buttons/Button";
 import SignInButton from "./buttons/SignInButton";
+import ProfileIcon from "./icons/ProfileIcon";
 
 function PrimaryMenu() {
   return (
@@ -33,7 +34,9 @@ function SecondaryMenu(props: ElementProps) {
     return (
       <ul className={props.className}>
         <li className="m-2">
-          <Link href="/profile">Profile</Link>
+          <Link href="/profile">
+            <ProfileIcon className="cursor-pointer text-3xl" />
+          </Link>
         </li>
         <li className="m-2">
           <Button className="secondary" onClick={() => signOut()}>
@@ -74,7 +77,7 @@ export default function Nav() {
         <BrandIcon href="/" className="h-10 w-10 sm:h-16 sm:w-16" />
         <div onClick={() => setIsOpen(!isOpen)}>
           <MenuIcon className="cursor-pointer text-3xl md:hidden" />
-          <SecondaryMenu className="hidden md:flex md:flex-row" />
+          <SecondaryMenu className="center hidden md:flex md:flex-row" />
         </div>
         <div
           className={`col center absolute top-0 left-0 
