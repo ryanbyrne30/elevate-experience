@@ -9,34 +9,39 @@ import { useParam } from "@/hooks/useParam";
 import AddPlayerInput from "./AddPlayerInput";
 import AddedPlayers from "./AddedPlayers";
 import { usePlayersStore } from "./playerStore";
+import Button from "@/components/buttons/Button";
+import DisplayFormError, { FormError } from "@/components/FormError";
 
 export default function EventRegister({ event }: { event?: EventDetails }) {
   const stripeStatus = useParam("status");
+  const [error, setError] = useState<FormError>(null);
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession({ required: true });
-  const { setMaxPlayers } = usePlayersStore((state) => ({
-    setMaxPlayers: state.setMaxPlayers,
-  }));
+  const { guests, users, maxPlayers, setMaxPlayers } = usePlayersStore(
+    (state) => ({
+      guests: state.guests,
+      users: state.users,
+      maxPlayers: state.maxPlayers,
+      setMaxPlayers: state.setMaxPlayers,
+    })
+  );
 
   const registerMutation = trpc.useMutation(["protectedEvents.register"]);
   const unregisterMutation = trpc.useMutation(["protectedEvents.unregister"]);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // if (event === undefined) throw "No event given.";
-    // const guests = players
-    //   .map((p) => {
-    //     return p.id === undefined ? p.name : null;
-    //   })
-    //   .filter((g) => g !== null) as string[];
-    // const userIds = players
-    //   .map((p) => p.id)
-    //   .filter((uid) => uid !== undefined) as string[];
-    // registerMutation.mutate({
-    //   eventId: event.id,
-    //   guests,
-    //   userIds,
-    // });
+    if (!session?.user) return setError("Must be signed in to register.");
+    if (event === undefined) return setError("Event is undefined.");
+    if (guests.length + users.length + 1 < maxPlayers)
+      return setError("Add more players to your team.");
+    if (guests.length + users.length + 1 > maxPlayers)
+      return setError("Too many players on team.");
+    registerMutation.mutate({
+      eventId: event.id,
+      guests: guests.map((g) => g.name),
+      userIds: [...users.map((u) => u.id)],
+    });
   };
 
   const makePayment = async (sessionId: string) => {
@@ -84,15 +89,32 @@ export default function EventRegister({ event }: { event?: EventDetails }) {
     );
 
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <div className="group">
         <span className="text-sm">{event?.name}</span>
         <h1>Register Team</h1>
       </div>
       <div className="group">
+        <label>
+          Players ({1 + guests.length + users.length}/{maxPlayers})
+        </label>
         <AddedPlayers />
       </div>
-      <AddPlayerInput />
+      <DisplayFormError error={error} />
+      <DisplayFormError error={registerMutation.error} />
+      <DisplayFormError error={unregisterMutation.error} />
+      {guests.length + users.length + 1 >= maxPlayers ? (
+        <Button
+          type="submit"
+          className="primary"
+          isLoading={loading || registerMutation.isLoading}
+          loadingMessage="Registering team..."
+        >
+          Register
+        </Button>
+      ) : (
+        <AddPlayerInput />
+      )}
     </form>
   );
 

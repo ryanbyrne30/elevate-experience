@@ -24,26 +24,29 @@ export const usePlayersStore = create(
     setMaxPlayers: (max) =>
       set((state) => {
         state.maxPlayers = max;
+        state.error = null;
       }),
     addGuest: (guest) =>
       set((state) => {
-        if (state.users.length + state.guests.length >= state.maxPlayers) {
+        if (state.users.length + state.guests.length + 1 >= state.maxPlayers) {
           state.error = "Team is full.";
         } else if (
           state.guests.findIndex((g) => g.name === guest.name) !== -1
         ) {
           state.error = "Guest already added.";
         } else {
+          state.error = null;
           state.guests.push(guest);
         }
       }),
     addUser: (user) =>
       set((state) => {
-        if (state.users.length + state.guests.length >= state.maxPlayers) {
+        if (state.users.length + state.guests.length + 1 >= state.maxPlayers) {
           state.error = "Team is full.";
         } else if (state.users.findIndex((u) => u.id === user.id) !== -1) {
           state.error = "User already added.";
         } else {
+          state.error = null;
           state.users.push(user);
         }
       }),
@@ -51,11 +54,13 @@ export const usePlayersStore = create(
       set((state) => {
         const index = state.guests.findIndex((g) => g.name === name);
         if (index !== -1) state.guests.splice(index, 1);
+        state.error = null;
       }),
     removeUser: (id) =>
       set((state) => {
         const index = state.users.findIndex((g) => g.id === id);
         if (index !== -1) state.users.splice(index, 1);
+        state.error = null;
       }),
   }))
 );

@@ -20,8 +20,15 @@ export default function EventRegisterLink({ event }: { event: EventDetails }) {
 
   if (isRegistered)
     return (
-      <span className="text-center text-sm font-thin italic opacity-50">
+      <span className="text-center text-sm font-bold italic text-green-300 opacity-50">
         Already registered
+      </span>
+    );
+
+  if (event.teamEntryFee === null)
+    return (
+      <span className="text-center text-sm font-thin italic opacity-50">
+        Registration unavailable
       </span>
     );
 

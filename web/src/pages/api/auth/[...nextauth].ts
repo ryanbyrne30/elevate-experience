@@ -15,13 +15,14 @@ export const authOptions: NextAuthOptions = {
       return !email?.verificationRequest || user.id !== user.email;
     },
     async jwt({ token, user }) {
-      return {
-        ...token,
-        userId: user?.id,
-      };
+      if (user?.username) token.username = user.username;
+      return token;
     },
     async session({ session, token }) {
-      if (session.user && token.sub) session.user.id = token.sub;
+      if (session.user) {
+        if (token.sub) session.user.id = token.sub;
+        if (token.username) session.user.username = token.username;
+      }
       return session;
     },
   },

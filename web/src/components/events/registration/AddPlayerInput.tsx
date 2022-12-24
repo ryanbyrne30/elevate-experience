@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { RegisteredUser, usePlayersStore } from "./playerStore";
 import Button from "@/components/buttons/Button";
-import DisplayFormError, { FormError } from "@/components/FormError";
+import DisplayFormError from "@/components/FormError";
 import { trpc } from "@/utils/trpc";
 
 export default function AddPlayerInput() {
@@ -10,15 +10,13 @@ export default function AddPlayerInput() {
     enabled: false,
   });
 
-  const { error, guests, users, addGuest, addUser } = usePlayersStore(
-    (state) => ({
-      error: state.error,
-      guests: state.guests,
-      users: state.users,
-      addGuest: state.addGuest,
-      addUser: state.addUser,
-    })
-  );
+  const { error, addGuest, addUser } = usePlayersStore((state) => ({
+    error: state.error,
+    guests: state.guests,
+    users: state.users,
+    addGuest: state.addGuest,
+    addUser: state.addUser,
+  }));
 
   const addNewGuest = () => {
     addGuest({ name: input });

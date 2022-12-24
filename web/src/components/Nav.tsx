@@ -18,9 +18,6 @@ function PrimaryMenu() {
         <Link href="/events">Events</Link>
       </li>
       <li className="m-2">
-        <Link href="/">About</Link>
-      </li>
-      <li className="m-2">
         <Link href="/contact">Contact</Link>
       </li>
     </ul>
