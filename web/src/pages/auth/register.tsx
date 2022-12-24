@@ -31,7 +31,8 @@ export default function RegisterPage() {
     setCredential(email);
     registerMutation.mutate({
       email: email,
-      name: firstName + " " + lastName,
+      firstName: firstName,
+      lastName: lastName,
       username,
     });
   };

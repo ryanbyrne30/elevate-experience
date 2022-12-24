@@ -1,6 +1,5 @@
 import Button from "@/components/buttons/Button";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 
 export default function ProfilePage() {
   const { data: session } = useSession({ required: true });
@@ -21,11 +20,9 @@ export default function ProfilePage() {
         </table>
       </div>
       <div className="group">
-        <Link href="/profile/edit">
-          <Button type="button" className="primary">
-            Edit
-          </Button>
-        </Link>
+        <Button type="button" className="primary" href="/profile/edit">
+          Edit
+        </Button>
       </div>
     </div>
   );
