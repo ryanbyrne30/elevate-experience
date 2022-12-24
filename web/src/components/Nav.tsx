@@ -25,13 +25,13 @@ function PrimaryMenu() {
 }
 
 function SecondaryMenu(props: ElementProps) {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
 
-  if (status === "authenticated")
+  if (status === "authenticated" && session?.user?.id)
     return (
       <ul className={props.className}>
         <li className="m-2">
-          <Link href="/profile">
+          <Link href={`/profile/${session.user.id}`}>
             <span>
               <ProfileIcon className="cursor-pointer text-3xl" />
             </span>

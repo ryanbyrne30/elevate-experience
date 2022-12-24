@@ -1,10 +1,9 @@
 import DisplayFormError, { FormError } from "@/components/FormError";
 import Button from "@/components/buttons/Button";
-import { useRedirect } from "@/hooks/useRedirect";
 import { trpc } from "@/utils/trpc";
 import { userCheckers } from "@/utils/zodCheckers/user";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -30,7 +29,12 @@ export default function ProfileEditPage() {
     updateMutation.mutate(parseResult.data);
   };
 
-  useRedirect(updateMutation.isSuccess, "/profile");
+  useEffect(() => {
+    if (updateMutation.isSuccess) {
+      alert("Changes will appear on next login.");
+      window.location.replace("/");
+    }
+  }, [updateMutation.isSuccess]);
 
   if (!session)
     return (

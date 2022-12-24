@@ -99,6 +99,30 @@ export const userRouter = createRouter()
         },
       });
     },
+  })
+  .query("get", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      return await ctx.prisma.user.findUnique({
+        where: { id: input.id },
+        select: {
+          id: true,
+          name: true,
+          username: true,
+          teamPlayers: {
+            include: {
+              team: {
+                include: {
+                  event: true,
+                },
+              },
+            },
+          },
+        },
+      });
+    },
   });
 
 export const protectedUserRouter = createProtectedRouter().mutation("update", {
@@ -136,7 +160,6 @@ export const protectedUserRouter = createProtectedRouter().mutation("update", {
         code: "BAD_REQUEST",
         message: "Email already taken.",
       });
-    console.log("Received", input);
     return await ctx.prisma.user.update({
       where: { id: ctx.session.user.id },
       data: {

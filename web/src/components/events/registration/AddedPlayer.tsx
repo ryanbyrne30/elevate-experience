@@ -5,6 +5,7 @@ import {
   usePlayersStore,
 } from "./playerStore";
 import CloseIcon from "@/components/icons/CloseIcon";
+import Link from "next/link";
 
 function AddedPlayer({
   children,
@@ -45,10 +46,12 @@ export function AddedUser({
 
   return (
     <AddedPlayer onRemove={onRemove} readOnly={readOnly}>
-      <div className="col">
-        <span>{user.name}</span>
-        <span className="meta opacity-50">@{user.username}</span>
-      </div>
+      <Link href={`/profile/${user.id}`}>
+        <div className="col cursor-pointer">
+          <span>{user.name}</span>
+          <span className="meta opacity-50">@{user.username}</span>
+        </div>
+      </Link>
     </AddedPlayer>
   );
 }
