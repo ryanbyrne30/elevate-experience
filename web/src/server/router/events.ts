@@ -122,7 +122,7 @@ export const protectedEventsRouter = createProtectedRouter()
       await ctx.prisma.team.create({
         data: {
           eventId: event.id,
-          guests: input.guests.join(","),
+          guests: input.guests.length > 0 ? input.guests.join(",") : null,
           teamPlayers: {
             createMany: {
               data: [

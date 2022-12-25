@@ -39,15 +39,15 @@ model Team {
 
   teamPlayers TeamPlayer[]
   eventId     Int
-  event       Event        @relation(fields: [eventId], references: [id])
+  event       Event        @relation(fields: [eventId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([eventId])
 }
 
 model TeamPlayer {
-  team   Team   @relation(fields: [teamId], references: [id])
+  team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   teamId String
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String
 
   @@id([teamId, userId])

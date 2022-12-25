@@ -9,7 +9,6 @@ function Loader() {
 function Cell({ profile }: { profile: ProfilePublic }) {
   const { data: session } = useSession();
   const currentUser = session?.user;
-  console.log(currentUser?.id === profile.id);
 
   return (
     <div className="buffer-y px-4">
