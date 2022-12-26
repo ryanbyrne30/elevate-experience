@@ -16,10 +16,7 @@ function Cell({ profile }: { profile: ProfilePublic }) {
         <h1>{profile.name}</h1>
         <span className="my-2 font-bold opacity-50">@{profile.username}</span>
         {currentUser?.id === profile.id && (
-          <Button
-            href={`/profile/${currentUser.id}/edit`}
-            className="secondary"
-          >
+          <Button href="/profile/edit" className="secondary">
             Edit
           </Button>
         )}

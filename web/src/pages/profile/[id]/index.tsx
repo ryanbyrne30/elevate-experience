@@ -1,4 +1,4 @@
-import Profile from "@/components/profile/profile";
+import Profile from "@/components/profile/Profile";
 import { useParam } from "@/hooks/useParam";
 import { trpc } from "@/utils/trpc";
 import { useEffect } from "react";

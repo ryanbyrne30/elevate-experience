@@ -125,50 +125,60 @@ export const userRouter = createRouter()
     },
   });
 
-export const protectedUserRouter = createProtectedRouter().mutation("update", {
-  input: z.object({
-    firstName: userCheckers.firstName.optional(),
-    lastName: userCheckers.lastName.optional(),
-    username: userCheckers.username.optional(),
-    email: userCheckers.email.optional(),
-  }),
-  async resolve({ ctx, input }) {
-    const users = await ctx.prisma.user.findMany({
-      where: {
-        id: {
-          not: ctx.session.user.id,
+export const protectedUserRouter = createProtectedRouter()
+  .mutation("update", {
+    input: z.object({
+      firstName: userCheckers.firstName.optional(),
+      lastName: userCheckers.lastName.optional(),
+      username: userCheckers.username.optional(),
+      email: userCheckers.email.optional(),
+    }),
+    async resolve({ ctx, input }) {
+      const users = await ctx.prisma.user.findMany({
+        where: {
+          id: {
+            not: ctx.session.user.id,
+          },
+          OR: [
+            { username: input.username },
+            { email: input.email },
+            { reservedEmail: input.email },
+          ],
         },
-        OR: [
-          { username: input.username },
-          { email: input.email },
-          { reservedEmail: input.email },
-        ],
-      },
-    });
-    const foundUser = users[0];
-    if (foundUser !== undefined && foundUser.username === input.username)
-      throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: "Username already taken.",
       });
-    if (
-      foundUser !== undefined &&
-      (foundUser.email === input.email ||
-        foundUser.reservedEmail === input.email)
-    )
-      throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: "Email already taken.",
+      const foundUser = users[0];
+      if (foundUser !== undefined && foundUser.username === input.username)
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Username already taken.",
+        });
+      if (
+        foundUser !== undefined &&
+        (foundUser.email === input.email ||
+          foundUser.reservedEmail === input.email)
+      )
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Email already taken.",
+        });
+      return await ctx.prisma.user.update({
+        where: { id: ctx.session.user.id },
+        data: {
+          username: input.username,
+          name:
+            input.firstName !== undefined && input.lastName !== undefined
+              ? `${input.firstName} ${input.lastName}`
+              : undefined,
+        },
       });
-    return await ctx.prisma.user.update({
-      where: { id: ctx.session.user.id },
-      data: {
-        username: input.username,
-        name:
-          input.firstName !== undefined && input.lastName !== undefined
-            ? `${input.firstName} ${input.lastName}`
-            : undefined,
-      },
-    });
-  },
-});
+    },
+  })
+  .query("get", {
+    async resolve({ ctx }) {
+      return await ctx.prisma.user.findUnique({
+        where: {
+          id: ctx.session.user.id,
+        },
+      });
+    },
+  });
