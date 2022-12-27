@@ -1,4 +1,5 @@
 import DisplayFormError from "@/components/FormError";
+import PageHead from "@/components/PageHead";
 import { useParam } from "@/hooks/useParam";
 import { useRedirect } from "@/hooks/useRedirect";
 import { trpc } from "@/utils/trpc";
@@ -34,19 +35,32 @@ export default function ConfirmEmailChange() {
 
   if (verifyMutation.isError)
     return (
-      <div className="col center buffer-y">
-        <div className="group">
-          <h1>Could not change email.</h1>
+      <>
+        <PageHead
+          title="Email Not Confirmed"
+          description="Your email has not been changed for your Elevate Experience profile."
+        />
+
+        <div className="col center buffer-y">
+          <div className="group">
+            <h1>Could not change email.</h1>
+          </div>
+          <div className="group">
+            <DisplayFormError error={verifyMutation.error} />
+          </div>
         </div>
-        <div className="group">
-          <DisplayFormError error={verifyMutation.error} />
-        </div>
-      </div>
+      </>
     );
 
   return (
-    <div className="loading-parent buffer-y col center">
-      <h1>Changing email...</h1>
-    </div>
+    <>
+      <PageHead
+        title="Confirming email..."
+        description="Confirming your email..."
+      />
+      <div className="loading-parent buffer-y col center">
+        <h1>Changing email...</h1>
+      </div>
+    </>
   );
 }

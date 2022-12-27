@@ -1,4 +1,5 @@
 import DisplayFormError, { FormError } from "@/components/FormError";
+import PageHead from "@/components/PageHead";
 import Button from "@/components/buttons/Button";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
@@ -28,25 +29,28 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="buffer-y">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="text-center">Sign In to Your Account</h1>
-        <div className="group">
-          <label className="required">Email</label>
-          <input type="email" {...register("email")} required />
-        </div>
-        <DisplayFormError error={error} />
-        <div className="group">
-          <Button
-            type="submit"
-            className="primary"
-            isLoading={loading}
-            loadingMessage="Signing In..."
-          >
-            Sign In
-          </Button>
-        </div>
-      </form>
-    </div>
+    <>
+      <PageHead title="Sign In" description="Sign in to Elevate Experience." />
+      <div className="buffer-y">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <h1 className="text-center">Sign In to Your Account</h1>
+          <div className="group">
+            <label className="required">Email</label>
+            <input type="email" {...register("email")} required />
+          </div>
+          <DisplayFormError error={error} />
+          <div className="group">
+            <Button
+              type="submit"
+              className="primary"
+              isLoading={loading}
+              loadingMessage="Signing In..."
+            >
+              Sign In
+            </Button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

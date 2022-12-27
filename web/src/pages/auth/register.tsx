@@ -1,4 +1,5 @@
 import DisplayFormError from "@/components/FormError";
+import PageHead from "@/components/PageHead";
 import Button from "@/components/buttons/Button";
 import { useRedirect } from "@/hooks/useRedirect";
 import { trpc } from "@/utils/trpc";
@@ -43,59 +44,65 @@ export default function RegisterPage() {
   );
 
   return (
-    <div className="buffer-y">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="text-center">Create Your Account</h1>
-        <div className="group">
-          <label className="required">First Name</label>
-          <input
-            required
-            type="text"
-            placeholder="John"
-            {...register("firstName")}
-          />
-        </div>
-        <div className="group">
-          <label className="required">Last Name</label>
-          <input
-            required
-            type="text"
-            placeholder="Smith"
-            {...register("lastName")}
-          />
-        </div>
-        <div className="group">
-          <label className="required">Display Name</label>
-          <input
-            required
-            type="text"
-            placeholder="John_Smith13"
-            {...register("username")}
-          />
-        </div>
-        <div className="group">
-          <label className="required">Email</label>
-          <input
-            required
-            type="email"
-            placeholder="john.smith@example.com"
-            {...register("email")}
-          />
-        </div>
-        <div className="group">
-          <DisplayFormError error={error} />
-          <DisplayFormError error={registerMutation.error} />
-        </div>
-        <div className="group">
-          <Button
-            className="primary"
-            isLoading={registerMutation.isLoading}
-            loadingMessage="Creating profile..."
-          >
-            Sign Up
-          </Button>
-        </div>
-      </form>
-    </div>
+    <>
+      <PageHead
+        title="Create Account"
+        description="Create your Elevate Experience profile today and start attending the best events in your area."
+      />
+      <div className="buffer-y">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <h1 className="text-center">Create Your Account</h1>
+          <div className="group">
+            <label className="required">First Name</label>
+            <input
+              required
+              type="text"
+              placeholder="John"
+              {...register("firstName")}
+            />
+          </div>
+          <div className="group">
+            <label className="required">Last Name</label>
+            <input
+              required
+              type="text"
+              placeholder="Smith"
+              {...register("lastName")}
+            />
+          </div>
+          <div className="group">
+            <label className="required">Display Name</label>
+            <input
+              required
+              type="text"
+              placeholder="John_Smith13"
+              {...register("username")}
+            />
+          </div>
+          <div className="group">
+            <label className="required">Email</label>
+            <input
+              required
+              type="email"
+              placeholder="john.smith@example.com"
+              {...register("email")}
+            />
+          </div>
+          <div className="group">
+            <DisplayFormError error={error} />
+            <DisplayFormError error={registerMutation.error} />
+          </div>
+          <div className="group">
+            <Button
+              className="primary"
+              isLoading={registerMutation.isLoading}
+              loadingMessage="Creating profile..."
+            >
+              Sign Up
+            </Button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

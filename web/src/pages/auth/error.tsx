@@ -1,3 +1,4 @@
+import PageHead from "@/components/PageHead";
 import { useParam } from "@/hooks/useParam";
 import { useRedirect } from "@/hooks/useRedirect";
 import { useEffect, useState } from "react";
@@ -16,10 +17,16 @@ export default function AuthErrorPage() {
   if (!mounted) return null;
 
   return (
-    <div className="buffer-y text-center">
-      <h1>Whoops!</h1>
-      <h3>An error has occured.</h3>
-      <div className="group">{error}</div>
-    </div>
+    <>
+      <PageHead
+        title="Whoops..."
+        description="Error page for Elevate Experience."
+      />
+      <div className="buffer-y text-center">
+        <h1>Whoops!</h1>
+        <h3>An error has occured.</h3>
+        <div className="group">{error}</div>
+      </div>
+    </>
   );
 }

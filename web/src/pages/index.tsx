@@ -1,6 +1,6 @@
+import PageHead from "@/components/PageHead";
 import Socials from "@/components/Socials";
 import Button from "@/components/buttons/Button";
-import Head from "next/head";
 import { HTMLAttributes, useEffect, useState } from "react";
 
 function HeaderSlide(props: HTMLAttributes<HTMLDivElement>) {
@@ -62,11 +62,10 @@ function Header() {
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Welcome to Elevate Experience</title>
-        <meta name="description" content="Welcome to Elevate Experience." />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <PageHead
+        title="Welcome to Elevate"
+        description="Welcome to Elevate Experience."
+      />
       <div className="col center h-screen w-screen justify-center overflow-hidden">
         <div className="group">
           <Header />

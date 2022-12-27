@@ -1,3 +1,4 @@
+import PageHead from "@/components/PageHead";
 import Profile from "@/components/profile/Profile";
 import { useParam } from "@/hooks/useParam";
 import { trpc } from "@/utils/trpc";
@@ -15,5 +16,13 @@ export default function ProfilePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  return <Profile profile={getQuery.data} />;
+  return (
+    <>
+      <PageHead
+        title={`${getQuery.data?.name} - @${getQuery.data?.username}`}
+        description={`${getQuery.data?.name}'s (@${getQuery.data?.username}) Elevate Experience profile.`}
+      />
+      <Profile profile={getQuery.data} />;
+    </>
+  );
 }

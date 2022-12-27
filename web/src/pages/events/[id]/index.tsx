@@ -1,3 +1,4 @@
+import PageHead from "@/components/PageHead";
 import EventDisplay from "@/components/events/Event";
 import { useParam } from "@/hooks/useParam";
 import { trpc } from "@/utils/trpc";
@@ -21,13 +22,19 @@ export default function EventPage() {
   }, [eventId]);
 
   return (
-    <div className="col center buffer-y w-full">
-      <Link href="/events">
-        <div className="w-full cursor-pointer p-4 text-left underline">
-          Back to all events
-        </div>
-      </Link>
-      <EventDisplay event={getQuery.data} />
-    </div>
+    <>
+      <PageHead
+        title={`${getQuery.data?.name}`}
+        description={`Elevate Experiences event - ${getQuery.data?.name}. ${getQuery.data?.description}`}
+      />
+      <div className="col center buffer-y w-full">
+        <Link href="/events">
+          <div className="w-full cursor-pointer p-4 text-left underline">
+            Back to all events
+          </div>
+        </Link>
+        <EventDisplay event={getQuery.data} />
+      </div>
+    </>
   );
 }

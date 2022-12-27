@@ -1,3 +1,4 @@
+import PageHead from "@/components/PageHead";
 import RegisteredTeams from "@/components/events/registration/RegisteredTeams";
 import { useParam } from "@/hooks/useParam";
 import { trpc } from "@/utils/trpc";
@@ -18,10 +19,16 @@ export default function EventRegisteredPage() {
   }, [id]);
 
   return (
-    <div className="buffer-y col center w-screen max-w-sm px-4">
-      <span className="meta">{getQuery.data?.name}</span>
-      <h1>Teams Registered</h1>
-      <RegisteredTeams event={getQuery.data} />
-    </div>
+    <>
+      <PageHead
+        title="Registered Teams"
+        description={`See all teams registered for ${getQuery.data?.name} event brought to you by Elevate Experience.`}
+      />
+      <div className="buffer-y col center w-screen max-w-sm px-4">
+        <span className="meta">{getQuery.data?.name}</span>
+        <h1>Teams Registered</h1>
+        <RegisteredTeams event={getQuery.data} />
+      </div>
+    </>
   );
 }

@@ -1,3 +1,4 @@
+import PageHead from "@/components/PageHead";
 import EventRegister from "@/components/events/registration/EventRegister";
 import { useParam } from "@/hooks/useParam";
 import { trpc } from "@/utils/trpc";
@@ -20,8 +21,14 @@ export default function EventRegisterPage() {
   }, [eventId]);
 
   return (
-    <div className="buffer-y">
-      <EventRegister event={getQuery.data} />
-    </div>
+    <>
+      <PageHead
+        title={`Register for ${getQuery.data?.name}`}
+        description={`Register for ${getQuery.data?.name}. This event is brought to you by Elevate Experience.`}
+      />
+      <div className="buffer-y">
+        <EventRegister event={getQuery.data} />
+      </div>
+    </>
   );
 }

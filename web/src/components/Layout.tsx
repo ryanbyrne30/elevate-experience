@@ -5,7 +5,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <Nav />
-      <main className="col center w-screen">{children}</main>
+      <main className="col center min-h-screen w-screen">{children}</main>
     </>
   );
 }
