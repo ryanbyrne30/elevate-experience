@@ -22,7 +22,7 @@ export default function ProfilePage() {
         title={`${getQuery.data?.name} - @${getQuery.data?.username}`}
         description={`${getQuery.data?.name}'s (@${getQuery.data?.username}) Elevate Experience profile.`}
       />
-      <Profile profile={getQuery.data} />;
+      <Profile profile={getQuery.data} />
     </>
   );
 }
