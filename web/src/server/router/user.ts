@@ -4,6 +4,8 @@ import { TRPCError } from "@trpc/server";
 import { sendEmailHtml, userInfoToHtmlFromContext } from "@/utils/email";
 import { env } from "@/env/server.mjs";
 import { userCheckers } from "@/utils/zodCheckers/user";
+import { handleEmailChangeRequest } from "../common/auth/emailChangeRequest";
+import { handleEmailChangeVerification } from "../common/auth/emailChangeVerify";
 
 export const userRouter = createRouter()
   .mutation("register", {
@@ -134,18 +136,23 @@ export const protectedUserRouter = createProtectedRouter()
       email: userCheckers.email.optional(),
     }),
     async resolve({ ctx, input }) {
-      const users = await ctx.prisma.user.findMany({
-        where: {
-          id: {
-            not: ctx.session.user.id,
+      const [users, user] = await ctx.prisma.$transaction([
+        ctx.prisma.user.findMany({
+          where: {
+            id: {
+              not: ctx.session.user.id,
+            },
+            OR: [
+              { username: input.username },
+              { email: input.email },
+              { reservedEmail: input.email },
+            ],
           },
-          OR: [
-            { username: input.username },
-            { email: input.email },
-            { reservedEmail: input.email },
-          ],
-        },
-      });
+        }),
+        ctx.prisma.user.findUniqueOrThrow({
+          where: { id: ctx.session.user.id },
+        }),
+      ]);
       const foundUser = users[0];
       if (foundUser !== undefined && foundUser.username === input.username)
         throw new TRPCError({
@@ -161,7 +168,12 @@ export const protectedUserRouter = createProtectedRouter()
           code: "BAD_REQUEST",
           message: "Email already taken.",
         });
-      return await ctx.prisma.user.update({
+
+      // check if email has been updated
+      const emailChange =
+        user.email !== input.email && input.email !== undefined;
+
+      await ctx.prisma.user.update({
         where: { id: ctx.session.user.id },
         data: {
           username: input.username,
@@ -169,8 +181,21 @@ export const protectedUserRouter = createProtectedRouter()
             input.firstName !== undefined && input.lastName !== undefined
               ? `${input.firstName} ${input.lastName}`
               : undefined,
+          reservedEmail: emailChange ? input.email : undefined,
         },
       });
+
+      if (emailChange && input.email)
+        await handleEmailChangeRequest(input.email, ctx);
+    },
+  })
+  .mutation("verifyEmail", {
+    input: z.object({
+      email: z.string().email(),
+      token: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      await handleEmailChangeVerification(input.email, input.token, ctx);
     },
   })
   .query("get", {

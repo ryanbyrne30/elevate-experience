@@ -15,6 +15,10 @@ export const serverSchema = z.object({
   EMAIL_PORT: z.string().transform((s) => parseInt(s)),
   EMAIL_FROM: z.string().email(),
   EMAIL_PASSWORD: z.string(),
+  VERIFY_EXPIRATION_MIN: z
+    .string()
+    .regex(new RegExp(/^[0-9]+$/), "VERIFY_EXPIRATION_MIN must be an integer.")
+    .transform((s) => parseInt(s)),
   SUPPORT_EMAIL: z.string().email(),
   STRIPE_SECRET_KEY: z.string(),
 });

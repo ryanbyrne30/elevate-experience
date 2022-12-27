@@ -39,6 +39,7 @@ function Loader() {
 
 function Cell({ user }: { user: User }) {
   const { register, handleSubmit } = useForm();
+  const [changedEmail, setChangedEmail] = useState(false);
   const [error, setError] = useState<FormError>(null);
   const updateMutation = trpc.useMutation(["protectedUser.update"]);
 
@@ -53,10 +54,12 @@ function Cell({ user }: { user: User }) {
       })
       .safeParse(data);
     if (!parseResult.success) return setError(parseResult.error);
+    if (parseResult.data.email !== user.email) setChangedEmail(true);
     updateMutation.mutate(parseResult.data);
   };
 
-  useRedirect(updateMutation.isSuccess, `/profile/${user.id}`);
+  useRedirect(updateMutation.isSuccess && changedEmail, "/auth/verify");
+  useRedirect(updateMutation.isSuccess && !changedEmail, `/profile/${user.id}`);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

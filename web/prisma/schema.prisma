@@ -91,7 +91,7 @@ model User {
   username      String       @unique
   email         String       @unique
   emailVerified DateTime?
-  reservedEmail String?
+  reservedEmail String?      @unique
   image         String?
   accounts      Account[]
   sessions      Session[]
