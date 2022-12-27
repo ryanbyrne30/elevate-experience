@@ -26,6 +26,7 @@ export default function ContactPage() {
   if (sendMutation.isSuccess) {
     reset();
     alert("Thank you for your feedback!");
+    sendMutation.reset();
     window.location.reload();
   }
 
