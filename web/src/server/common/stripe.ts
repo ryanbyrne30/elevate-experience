@@ -1,28 +1,32 @@
 import { env } from "@/env/server.mjs";
+import Stripe from "stripe";
 
-const stripeApi = "https://api.stripe.com/v1";
-const headers = {
-  Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`,
-};
+const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
+  apiVersion: "2022-11-15",
+});
 
-export async function fetchStripeProduct(productId: string) {
-  const productResponse = await fetch(`${stripeApi}/products/${productId}`, {
-    headers,
+export async function createStripeSession(
+  productName: string,
+  unitPrice: number,
+  quantity: number,
+  redirectUrl: string
+) {
+  return await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: productName,
+          },
+          unit_amount: unitPrice * 100,
+        },
+        quantity,
+      },
+    ],
+    mode: "payment",
+    success_url: `${redirectUrl}?status=success`,
+    cancel_url: `${redirectUrl}?status=cancel`,
   });
-  return await productResponse.json();
-}
-
-export async function fetchStripeProductDefaultPriceId(productId: string) {
-  const product = await fetchStripeProduct(productId);
-  return product["default_price"];
-}
-
-export async function fetchStripeProductPrice(productId: string) {
-  const priceId: string = await fetchStripeProductDefaultPriceId(productId);
-  const priceResponse = await fetch(`${stripeApi}/prices/${priceId}`, {
-    headers,
-  });
-  const priceData = await priceResponse.json();
-  const price: number = priceData["unit_amount"];
-  return price / 100;
 }
