@@ -1,39 +1,36 @@
+import Button from "@/components/buttons/Button";
 import { EventDetails } from "@/types/event";
-import Button from "../../buttons/Button";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 export default function EventRegisterLink({ event }: { event: EventDetails }) {
-  const { data: session } = useSession();
   const [isRegistered, setIsRegistered] = useState(false);
+  const { data: session } = useSession();
 
   useEffect(() => {
-    if (session?.user?.id) {
-      const uids: string[] = [];
-      event.teams.forEach((team) =>
-        team.teamPlayers.forEach((player) => uids.push(player.userId))
-      );
-      setIsRegistered(uids.includes(session.user.id));
-    }
+    const uids: string[] = [];
+    event.divisions.forEach((d) =>
+      d.teams.forEach((t) => t.teamUsers.forEach((u) => uids.push(u.userId)))
+    );
+    setIsRegistered(
+      session?.user?.id !== undefined && uids.includes(session?.user?.id)
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session?.user?.id]);
+  }, [event]);
 
   if (isRegistered)
     return (
-      <span className="text-center text-sm font-bold italic text-green-300 opacity-50">
+      <span className="text-sm italic text-green-400 opacity-50">
         Already registered
       </span>
     );
 
-  if (event.teamEntryFee === null)
-    return (
-      <span className="text-center text-sm font-thin italic opacity-50">
-        Registration unavailable
-      </span>
-    );
-
   return (
-    <Button className="primary" href={`/events/${event.id}/register`}>
+    <Button
+      type="button"
+      className="primary w-fit"
+      href={`/events/${event.id}/register`}
+    >
       Register
     </Button>
   );

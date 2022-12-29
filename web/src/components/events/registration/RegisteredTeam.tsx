@@ -7,8 +7,8 @@ function Loader() {
 
 function Cell({ team }: { team: TeamDetails }) {
   return (
-    <ul className="col w-full">
-      {team.teamPlayers.map((player) => (
+    <ul className="col w-full rounded-md bg-primary-light p-2">
+      {team.teamUsers.map((player) => (
         <li key={player.userId} className="my-0.5">
           <AddedUser user={player.user} readOnly={true} />
         </li>

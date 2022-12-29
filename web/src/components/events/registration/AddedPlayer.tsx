@@ -17,8 +17,8 @@ function AddedPlayer({
   readOnly?: boolean;
 }) {
   return (
-    <div className="row center my-1 w-full justify-between rounded bg-primary-light p-2">
-      <div>{children}</div>
+    <div className="row center my-1 w-full justify-between rounded p-2">
+      <div className="w-full">{children}</div>
       {!readOnly && (
         <CloseIcon
           className="cursor-pointer text-xl text-error"
@@ -47,8 +47,8 @@ export function AddedUser({
   return (
     <AddedPlayer onRemove={onRemove} readOnly={readOnly}>
       <Link href={`/profile/${user.id}`}>
-        <div className="col cursor-pointer">
-          <span>{user.name}</span>
+        <div className="row center cursor-pointer justify-between">
+          <span className="underline">{user.name}</span>
           <span className="meta opacity-50">@{user.username}</span>
         </div>
       </Link>
@@ -73,7 +73,7 @@ export function AddedGuest({
 
   return (
     <AddedPlayer onRemove={onRemove} readOnly={readOnly}>
-      <div className="col">
+      <div className="row center w-full justify-between">
         <span>{guest.name}</span>
         <span className="meta opacity-50">guest</span>
       </div>

@@ -113,11 +113,15 @@ export const userRouter = createRouter()
           id: true,
           name: true,
           username: true,
-          teamPlayers: {
+          teamUsers: {
             include: {
               team: {
                 include: {
-                  event: true,
+                  division: {
+                    include: {
+                      event: true,
+                    },
+                  },
                 },
               },
             },

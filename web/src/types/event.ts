@@ -1,13 +1,17 @@
-import { Event, Team, TeamPlayer, User } from "@prisma/client";
+import { Division, Event, Team, TeamUser, User } from "@prisma/client";
 
-export type TeamPlayerDetails = TeamPlayer & {
+export type TeamUserDetails = TeamUser & {
   user: User;
 };
 
 export type TeamDetails = Team & {
-  teamPlayers: TeamPlayerDetails[];
+  teamUsers: TeamUserDetails[];
+};
+
+export type DivisionDetails = Division & {
+  teams: TeamDetails[];
 };
 
 export type EventDetails = Event & {
-  teams: TeamDetails[];
+  divisions: DivisionDetails[];
 };

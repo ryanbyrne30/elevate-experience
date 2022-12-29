@@ -2,13 +2,14 @@
 import { createRouter } from "./context";
 import superjson from "superjson";
 
-import { eventsRouter, protectedEventsRouter } from "./events";
+import { eventsRouter } from "./events";
 import { protectedUserRouter, userRouter } from "./user";
+import { protectedDivisionsRouter } from "./divisions";
 
 export const appRouter = createRouter()
   .transformer(superjson)
   .merge("events.", eventsRouter)
-  .merge("protectedEvents.", protectedEventsRouter)
+  .merge("protectedDivisions", protectedDivisionsRouter)
   .merge("user.", userRouter)
   .merge("protectedUser.", protectedUserRouter);
 
