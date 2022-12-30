@@ -1,8 +1,22 @@
 import { z } from "zod";
-import { createProtectedRouter } from "./context";
+import { createProtectedRouter, createRouter } from "./context";
 import { TRPCError } from "@trpc/server";
 import { env } from "@/env/server.mjs";
 import { createStripeSession } from "../common/stripe";
+
+export const divisionsRouter = createRouter().query("get", {
+  input: z.object({
+    id: z.string(),
+  }),
+  async resolve({ input, ctx }) {
+    return await ctx.prisma.division.findUniqueOrThrow({
+      where: { id: input.id },
+      include: {
+        event: true,
+      },
+    });
+  },
+});
 
 export const protectedDivisionsRouter = createProtectedRouter()
   .mutation("register", {

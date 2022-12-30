@@ -21,7 +21,7 @@ function AddedPlayer({
       <div className="w-full">{children}</div>
       {!readOnly && (
         <CloseIcon
-          className="cursor-pointer text-xl text-error"
+          className="ml-2 cursor-pointer text-xl text-error"
           onClick={onRemove}
         />
       )}

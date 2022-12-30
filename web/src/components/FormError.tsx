@@ -5,7 +5,8 @@ export type FormError =
   | { message: string }
   | { path: (string | number)[]; message: string }[]
   | string
-  | null;
+  | null
+  | undefined;
 
 export default function DisplayFormError({
   error,

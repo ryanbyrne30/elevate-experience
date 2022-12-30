@@ -1,10 +1,10 @@
-import { Event, Team, TeamPlayer } from "@prisma/client";
+import { Division, Event, Team, TeamUser } from "@prisma/client";
 
 export type ProfilePublic = {
   id: string;
   name: string;
   username: string;
-  teamPlayers: (TeamPlayer & {
-    team: Team & { event: Event };
+  teamUsers: (TeamUser & {
+    team: Team & { division: Division & { event: Event } };
   })[];
 };

@@ -7,7 +7,7 @@ export default function AuthErrorPage() {
   const [mounted, setMounted] = useState(false);
   const error = useParam("error");
 
-  useRedirect(error === "AccessDenied", "/auth/signIn");
+  useRedirect(error === "AccessDenied", "/auth/signIn?error=unauthorized");
 
   useEffect(() => {
     const timeout = setTimeout(() => setMounted(true), 1000);

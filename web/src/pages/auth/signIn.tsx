@@ -1,13 +1,16 @@
 import DisplayFormError, { FormError } from "@/components/FormError";
 import PageHead from "@/components/PageHead";
 import Button from "@/components/buttons/Button";
+import { useParam } from "@/hooks/useParam";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
 export default function SignInPage() {
   const { register, handleSubmit } = useForm();
+  const errorCode = useParam("error");
   const [error, setError] = useState<FormError>(null);
   const [loading, setLoading] = useState(false);
 
@@ -39,6 +42,7 @@ export default function SignInPage() {
             <input type="email" {...register("email")} required />
           </div>
           <DisplayFormError error={error} />
+          <DisplayFormError error={errorCode} />
           <div className="group">
             <Button
               type="submit"
@@ -50,6 +54,14 @@ export default function SignInPage() {
             </Button>
           </div>
         </form>
+        <div className="group">
+          <span className="meta">Don&apos;t have an account?</span>
+          <Link href="/auth/register">
+            <span className="cursor-pointer italic underline">
+              Create an account
+            </span>
+          </Link>
+        </div>
       </div>
     </>
   );

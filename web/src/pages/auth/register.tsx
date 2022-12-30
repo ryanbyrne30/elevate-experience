@@ -3,6 +3,7 @@ import PageHead from "@/components/PageHead";
 import Button from "@/components/buttons/Button";
 import { useRedirect } from "@/hooks/useRedirect";
 import { trpc } from "@/utils/trpc";
+import Link from "next/link";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -102,6 +103,12 @@ export default function RegisterPage() {
             </Button>
           </div>
         </form>
+        <div className="group">
+          <span className="meta">Already have an account?</span>
+          <Link href="/auth/signIn">
+            <span className="cursor-pointer italic underline">Sign in</span>
+          </Link>
+        </div>
       </div>
     </>
   );

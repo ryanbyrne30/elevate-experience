@@ -21,7 +21,7 @@ function Cell({ event }: { event: EventDetails }) {
     .reduce((a, b) => a + b, 0);
 
   return (
-    <div className="col w-full overflow-x-hidden">
+    <div className="col w-full max-w-lg overflow-x-hidden">
       <header className="col center mb-4">
         <h1 className="text-center">{event.name}</h1>
         <div className="p-2"></div>

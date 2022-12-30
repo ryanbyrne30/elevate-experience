@@ -26,7 +26,7 @@ export default function EventRegisterPage() {
         title={`Register for ${getQuery.data?.name}`}
         description={`Register for ${getQuery.data?.name}. This event is brought to you by Elevate Experience.`}
       />
-      <div className="buffer-y">
+      <div className="buffer-y col center w-full px-4">
         <EventRegister event={getQuery.data} />
       </div>
     </>
