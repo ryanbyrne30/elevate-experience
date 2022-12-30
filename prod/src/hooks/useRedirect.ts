@@ -1,0 +1,16 @@
+import { useEffect } from "react";
+
+export const useRedirect = (doRedirect: boolean, url: string) => {
+  useEffect(() => {
+    if (doRedirect) window.location.replace(url);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [doRedirect]);
+};
+
+export const useRedirectError = (doRedirect: boolean, message: string) =>
+  useRedirect(doRedirect, `/error?message=${message}`);
+
+export const useRedirectNotFound = (doRedirect: boolean) =>
+  useRedirect(doRedirect, "/notfound");
+
+export const useReload = (doRedirect: boolean) => useRedirect(doRedirect, "");
