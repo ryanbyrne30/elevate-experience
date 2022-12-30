@@ -32,7 +32,7 @@ function EventDivision({ division }: { division: DivisionDetails }) {
           </span>
         </div>
       </div>
-      <div className={`max-h-96 overflow-scroll`}>
+      <div className={`max-h-96 overflow-scroll pb-8`}>
         <RegisteredTeams teams={division.teams} />
       </div>
     </div>
@@ -41,7 +41,7 @@ function EventDivision({ division }: { division: DivisionDetails }) {
 
 export default function EventDivisions({ event }: { event?: EventDetails }) {
   return (
-    <div className="overflow-hidden">
+    <div className="max-h-96 overflow-hidden">
       <ul className="row snap-x snap-mandatory items-start overflow-x-scroll">
         {event?.divisions.map((d) => (
           <li key={d.id} className="snap-center">

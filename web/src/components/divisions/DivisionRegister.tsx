@@ -11,6 +11,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { env } from "@/env/client.mjs";
 import SignInButton from "../buttons/SignInButton";
 import { useSession } from "next-auth/react";
+import { useRedirect } from "@/hooks/useRedirect";
 
 function Loader() {
   return <span>Loading...</span>;
@@ -62,7 +63,7 @@ function Cell({ division }: { division: Division & { event: Event } }) {
   useEffect(() => {
     if (stripeStatus === "success")
       window.location.replace(`/events/${division.event.id}`);
-    else if (stripeStatus === "canceled")
+    else if (stripeStatus === "cancel")
       unregisterMutation.mutate({
         divisionId: division.id,
       });
@@ -74,6 +75,8 @@ function Cell({ division }: { division: Division & { event: Event } }) {
       makePayment(registerMutation.data.sessionId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [registerMutation.isSuccess]);
+
+  useRedirect(unregisterMutation.isSuccess, `/events/${division.eventId}`);
 
   if (session === null)
     return (

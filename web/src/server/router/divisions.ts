@@ -27,6 +27,7 @@ export const protectedDivisionsRouter = createProtectedRouter()
     }),
     async resolve({ ctx, input }) {
       const currentUserId = ctx.session.user.id;
+      const allUserIds = [currentUserId, ...input.userIds];
       const [division, users] = await ctx.prisma.$transaction([
         ctx.prisma.division.findUniqueOrThrow({
           where: { id: input.divisionId },
@@ -46,7 +47,7 @@ export const protectedDivisionsRouter = createProtectedRouter()
         ctx.prisma.user.findMany({
           where: {
             id: {
-              in: input.userIds,
+              in: allUserIds,
             },
           },
         }),
@@ -54,10 +55,10 @@ export const protectedDivisionsRouter = createProtectedRouter()
 
       // check if users exist
       const foundUserIds = users.map((u) => u.id);
-      if (users.length !== input.userIds.length)
+      if (users.length !== allUserIds.length)
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Users not found: ${input.userIds.filter(
+          message: `Users not found: ${allUserIds.filter(
             (u) => !foundUserIds.includes(u)
           )}.`,
         });
