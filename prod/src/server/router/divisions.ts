@@ -27,21 +27,41 @@ export const protectedDivisionsRouter = createProtectedRouter()
     }),
     async resolve({ ctx, input }) {
       const currentUserId = ctx.session.user.id;
-      const division = await ctx.prisma.division.findUniqueOrThrow({
-        where: { id: input.divisionId },
-        include: {
-          event: true,
-          teams: {
-            include: {
-              teamUsers: {
-                include: {
-                  user: true,
+      const allUserIds = [currentUserId, ...input.userIds];
+      const [division, users] = await ctx.prisma.$transaction([
+        ctx.prisma.division.findUniqueOrThrow({
+          where: { id: input.divisionId },
+          include: {
+            event: true,
+            teams: {
+              include: {
+                teamUsers: {
+                  include: {
+                    user: true,
+                  },
                 },
               },
             },
           },
-        },
-      });
+        }),
+        ctx.prisma.user.findMany({
+          where: {
+            id: {
+              in: allUserIds,
+            },
+          },
+        }),
+      ]);
+
+      // check if users exist
+      const foundUserIds = users.map((u) => u.id);
+      if (users.length !== allUserIds.length)
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `Users not found: ${allUserIds.filter(
+            (u) => !foundUserIds.includes(u)
+          )}.`,
+        });
 
       // check if registration is open for division
       if (division.teamEntryFee === null)
