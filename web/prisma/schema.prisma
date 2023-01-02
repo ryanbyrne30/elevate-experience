@@ -38,7 +38,7 @@ model Division {
   maxTeams     Int
 
   eventId Int
-  event   Event  @relation(fields: [eventId], references: [id])
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   teams   Team[]
 
   @@index([eventId])
@@ -49,7 +49,7 @@ model Team {
   guests String?
 
   divisionId String
-  division   Division   @relation(fields: [divisionId], references: [id])
+  division   Division   @relation(fields: [divisionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   teamUsers  TeamUser[]
 
   @@index([divisionId])
@@ -80,7 +80,7 @@ model Account {
   scope             String?
   id_token          String? //@db.Text
   session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@unique([provider, providerAccountId])
   @@index([userId])
@@ -91,7 +91,7 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([userId])
 }
