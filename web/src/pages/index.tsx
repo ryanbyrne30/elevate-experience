@@ -1,6 +1,7 @@
 import PageHead from "@/components/PageHead";
 import Socials from "@/components/Socials";
 import Button from "@/components/buttons/Button";
+import Link from "next/link";
 import { HTMLAttributes, useEffect, useState } from "react";
 
 function HeaderSlide(props: HTMLAttributes<HTMLDivElement>) {
@@ -67,6 +68,25 @@ export default function Home() {
         description="Welcome to Elevate Experience."
       />
       <div className="col center h-screen w-screen justify-center overflow-hidden">
+        <div className="group bg-yellow-500 text-primary">
+          <h2>Under Construction</h2>
+          <p>
+            To sign up for the upcoming <b>Swingers Tournament</b>, please
+            comment under{" "}
+            <Link href="https://www.facebook.com/events/1684032278665916">
+              <span className="cursor-pointer text-blue-700 underline">
+                our Facebook post
+              </span>
+            </Link>{" "}
+            or reach out to{" "}
+            <Link href="https://www.facebook.com/events/1684032278665916">
+              <span className="cursor-pointer text-blue-700 underline">
+                Lanae on Facebook
+              </span>
+            </Link>
+            .
+          </p>
+        </div>
         <div className="group">
           <Header />
         </div>
