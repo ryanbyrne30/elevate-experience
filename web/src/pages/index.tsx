@@ -68,7 +68,7 @@ export default function Home() {
         description="Welcome to Elevate Experience."
       />
       <div className="col center h-screen w-screen justify-center overflow-hidden">
-        <div className="group bg-yellow-500 text-primary">
+        <div className="group bg-yellow-500 p-4 text-primary">
           <h2>Under Construction</h2>
           <p>
             To sign up for the upcoming <b>Swingers Tournament</b>, please
