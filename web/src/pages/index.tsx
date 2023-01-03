@@ -73,17 +73,25 @@ export default function Home() {
           <p>
             To sign up for the upcoming <b>Swingers Tournament</b>, please
             comment under{" "}
-            <Link href="https://www.facebook.com/events/1684032278665916">
+            <a
+              href="https://www.facebook.com/events/1684032278665916"
+              target="_blank"
+              rel="noreferrer"
+            >
               <span className="cursor-pointer text-blue-700 underline">
                 our Facebook post
               </span>
-            </Link>{" "}
+            </a>{" "}
             or reach out to{" "}
-            <Link href="https://www.facebook.com/events/1684032278665916">
+            <a
+              href="https://www.facebook.com/profile.php?id=100010552686994"
+              target="_blank"
+              rel="noreferrer"
+            >
               <span className="cursor-pointer text-blue-700 underline">
                 Lanae on Facebook
               </span>
-            </Link>
+            </a>
             .
           </p>
         </div>
