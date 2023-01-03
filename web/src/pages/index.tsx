@@ -1,7 +1,6 @@
 import PageHead from "@/components/PageHead";
 import Socials from "@/components/Socials";
 import Button from "@/components/buttons/Button";
-import Link from "next/link";
 import { HTMLAttributes, useEffect, useState } from "react";
 
 function HeaderSlide(props: HTMLAttributes<HTMLDivElement>) {
