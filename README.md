@@ -1,4 +1,4 @@
-![Screenshot from 2023-08-24 14-35-41](https://github.com/ryanbyrne30/elevate-experience/assets/33855634/17373f3f-6566-4fe3-b9b7-72e45e3d7dad)
+![Screenshot from 2023-08-24 14-36-31](https://github.com/ryanbyrne30/elevate-experience/assets/33855634/6c630e92-62b8-41a6-bb54-8e458236ebd8)
 
 # Test and Demo Website for a Sports Company
 
